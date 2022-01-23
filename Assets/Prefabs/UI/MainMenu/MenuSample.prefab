@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 715394849170733222}
   - component: {fileID: 7917505149381164211}
   - component: {fileID: 6690271508517025682}
+  - component: {fileID: 7773490796354304123}
   m_Layer: 5
   m_Name: MenuSample
   m_TagString: Untagged
@@ -91,6 +92,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &7773490796354304123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4004733501325686727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &5585652326119189869
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,8 +139,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15, y: -291}
-  m_SizeDelta: {x: -70, y: -582}
+  m_AnchoredPosition: {x: 15, y: -288}
+  m_SizeDelta: {x: -70, y: -588}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1065095258226814606
 CanvasRenderer:

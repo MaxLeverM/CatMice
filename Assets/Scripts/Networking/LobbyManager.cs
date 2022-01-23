@@ -1,4 +1,5 @@
 ﻿using System;
+using Lever.Constants;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -10,42 +11,47 @@ namespace Lever.Networking
 {
     public class LobbyManager : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private TMP_Text LogText;
-        
+        public string NickName
+        {
+            get => PhotonNetwork.NickName;
+            set => PhotonNetwork.NickName = value;
+        }
+
+        private void Awake()
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.GameVersion = Application.version;
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
         private void Start()
         {
-            PhotonNetwork.NickName = "Player " + new Random().Next(1000, 5555);
-            Log("Player's name is set to " + PhotonNetwork.NickName);
-            PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.GameVersion = "1";
-            PhotonNetwork.ConnectUsingSettings();
         }
 
         public override void OnConnectedToMaster()
         {
-            Log("Connected to Master");
+            Debug.Log("Connected to Master");
         }
 
-        public void CreateRoom()
+        public void CreateRoom(string name, byte maxPlayers = 4)
         {
-            PhotonNetwork.CreateRoom("test", new RoomOptions { MaxPlayers = 4});
+            PhotonNetwork.CreateRoom(name, new RoomOptions { MaxPlayers = maxPlayers , IsOpen = false, EmptyRoomTtl = 0});
         }
 
         public void JoinRoom(string roomName)
         {
-            PhotonNetwork.JoinRoom("test");
+            PhotonNetwork.JoinRoom(roomName);
         }
 
         public override void OnJoinedRoom()
         {
-            Log("Joined the room");
-            PhotonNetwork.LoadLevel("NetworkingGame");
+            Debug.Log("Joined the room");
+            PhotonNetwork.LoadLevel(SceneNames.Multiplayer);
         }
 
-        private void Log(string message)
+        public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            Debug.Log(message);
-            LogText.text += "\n" + message;
+            Debug.Log($"{returnCode}: {message}");
         }
     }
 }

@@ -3,24 +3,27 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private Transform cameraPoint;
 
     [Header("Camera look parameters")]
     [Range(0f, 100f)]
-    [SerializeField] private float lookSensativity = 100f;
+    [SerializeField] private float lookSensativity = 100;
     [Range(-90f, -60f)]
-    [SerializeField] private float bottomCameraAngle = -60f;
+    [SerializeField] private float bottomCameraAngle = -60;
     [Range(60f, 90f)]
-    [SerializeField] private float upperCameraAngle = 60f;
+    [SerializeField] private float upperCameraAngle = 60;
 
-    private float xAxisRotation = 0f;
+    private float xAxisRotation = 0;
+    private float yAxisRotation = 0;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+        transform.position = cameraPoint.position;
         PlayerLook();
     }
 
@@ -32,7 +35,9 @@ public class PlayerCamera : MonoBehaviour
         xAxisRotation -= yAxisMouseMovement;
         xAxisRotation = Mathf.Clamp(xAxisRotation, bottomCameraAngle, upperCameraAngle);
 
-        transform.localRotation = Quaternion.Euler(xAxisRotation, 0f, 0f);
+        yAxisRotation += xAxisMouseMovement;
+
+        transform.rotation = Quaternion.Euler(xAxisRotation, yAxisRotation, 0);
         player.Rotate(Vector3.up * xAxisMouseMovement);
     }
 }

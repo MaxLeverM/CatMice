@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Animator playerAnimator;
 
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 10;
@@ -21,8 +22,8 @@ public class PlayerControl : MonoBehaviour
 
     [Header("Crouch parameters")]
     [SerializeField] private float crouchSpeed = 4;
-    [SerializeField] private float crouchingHeight = 1.5f;
-    [SerializeField] private Vector3 crouchingCenter = new Vector3(0, -0.6f, 0);
+    [SerializeField] private float crouchingHeight = 1;
+    [SerializeField] private Vector3 crouchingCenter = new Vector3(0, -0.5f, 0);
 
     [Header("Dash settings")]
     [SerializeField] private float dashSpeed = 20;
@@ -33,6 +34,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
 
     private Transform mainCamera;
+    private Vector3 defaultCameraPosition;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
@@ -43,12 +45,15 @@ public class PlayerControl : MonoBehaviour
     protected virtual void Start()
     {
         mainCamera = Camera.main.transform;
+        defaultCameraPosition = mainCamera.position;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
     }
 
     protected virtual void Update()
     {
+        playerAnimator.SetBool("Crouch", isCrouching);
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             PlayerJump(defaultJumpHeight);
 
@@ -70,7 +75,6 @@ public class PlayerControl : MonoBehaviour
         isCrouching = false;
         characterController.height = standingHeight;
         characterController.center = standingCenter;
-        SetCameraPosition();
 
         MovePlayer(runSpeed);
     }
@@ -97,14 +101,6 @@ public class PlayerControl : MonoBehaviour
         isCrouching = true;
         characterController.height = crouchingHeight;
         characterController.center = crouchingCenter;
-        SetCameraPosition();
-    }
-
-    protected virtual void SetCameraPosition()
-    {
-        var cameraPosition = mainCamera.position;
-        cameraPosition.y = characterController.bounds.max.y;
-        mainCamera.position = cameraPosition;
     }
 
     protected virtual IEnumerator Dash()
@@ -121,6 +117,7 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Attack()
     {
+        playerAnimator.SetTrigger("Kicking");
         var ray = new Ray(mainCamera.position, mainCamera.forward);
         if(Physics.Raycast(ray, attackDistance, playerLayer))
         {
@@ -131,6 +128,7 @@ public class PlayerControl : MonoBehaviour
     protected virtual void SimulatePhysics()
     {
         isGrounded = Physics.CheckSphere(groundCheckComponent.position, groundCheckRadius, groundLayer);
+        playerAnimator.SetBool("Jump", !isGrounded);
 
         if (isGrounded && velocity.y < 0)
             velocity.y = forceDownVelocity;

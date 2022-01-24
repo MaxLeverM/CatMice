@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Lever.Networking
 {
-    public class NetworkingManager : MonoBehaviourPunCallbacks
+    public class GameNetworking : MonoBehaviourPunCallbacks
     {
         public void Leave()
         {

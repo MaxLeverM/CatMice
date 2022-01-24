@@ -10,7 +10,7 @@ using Random = System.Random;
 
 namespace Lever.Networking
 {
-    public class LobbyManager : MonoBehaviourPunCallbacks
+    public class LobbyNetworking : MonoBehaviourPunCallbacks
     {
         private List<RoomInfo> rooms;
 

@@ -7,7 +7,7 @@ namespace Lever.ZenjectCustom
     {
         public override void InstallBindings()
         {
-            Container.Bind<LobbyManager>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+            Container.Bind<LobbyNetworking>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         }
     }
 }

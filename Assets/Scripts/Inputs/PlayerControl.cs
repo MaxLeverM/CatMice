@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
 
     [Header("Default movement parameters")]
-    [SerializeField] private float runSpeed = 10;
+    [SerializeField] private float runSpeed = 7;
 
     [Header("Gravity paramaters")]
     [SerializeField] private float gravity = -9.81f;
@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float bigJumpHeight = 3;
 
     [Header("Crouch parameters")]
-    [SerializeField] private float crouchSpeed = 4;
+    [SerializeField] private float crouchSpeed = 3;
     [SerializeField] private float crouchingHeight = 1;
     [SerializeField] private Vector3 crouchingCenter = new Vector3(0, -0.5f, 0);
 
@@ -34,7 +34,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
 
     private Transform mainCamera;
-    private Vector3 defaultCameraPosition;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
@@ -45,7 +44,6 @@ public class PlayerControl : MonoBehaviour
     protected virtual void Start()
     {
         mainCamera = Camera.main.transform;
-        defaultCameraPosition = mainCamera.position;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
     }
@@ -88,7 +86,9 @@ public class PlayerControl : MonoBehaviour
         var forwardDirectionMove = transform.forward * verticalInput;
         var moveDirection = (rightDirectionMove + forwardDirectionMove) * speed * Time.deltaTime;
 
+        playerAnimator.SetFloat("Speed", moveDirection.magnitude);
         characterController.Move(moveDirection);
+        
     }
 
     protected virtual void PlayerJump(float jumpHeight)
@@ -117,7 +117,7 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Attack()
     {
-        playerAnimator.SetTrigger("Kicking");
+        playerAnimator.SetTrigger("Kick");
         var ray = new Ray(mainCamera.position, mainCamera.forward);
         if(Physics.Raycast(ray, attackDistance, playerLayer))
         {

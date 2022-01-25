@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 using UnityEngine;
 
-namespace Lever
+namespace UnityTemplateProjects
 {
     public class SimpleCameraController : MonoBehaviour
     {

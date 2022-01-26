@@ -71,8 +71,7 @@ public class PlayerControl : MonoBehaviour
             Attack();
 
         isCrouching = false;
-        characterController.height = standingHeight;
-        characterController.center = standingCenter;
+        SetPlayerHeight();
 
         MovePlayer(runSpeed);
     }
@@ -99,8 +98,7 @@ public class PlayerControl : MonoBehaviour
     protected virtual void Crouch()
     {
         isCrouching = true;
-        characterController.height = crouchingHeight;
-        characterController.center = crouchingCenter;
+        SetPlayerHeight();
     }
 
     protected virtual IEnumerator Dash()
@@ -135,5 +133,14 @@ public class PlayerControl : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    protected virtual void SetPlayerHeight()
+    {
+        characterController.height = isCrouching ? crouchingHeight : standingHeight;
+        characterController.center = isCrouching ? crouchingCenter : standingCenter;
+        var cameraPosition = mainCamera.position;
+        cameraPosition.y = characterController.bounds.max.y;
+        mainCamera.position = cameraPosition;
     }
 }

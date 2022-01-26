@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private Transform cameraPoint;
 
     [Header("Camera look parameters")]
     [Range(0f, 100f)]
@@ -14,16 +13,14 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float upperCameraAngle = 60;
 
     private float xAxisRotation = 0;
-    private float yAxisRotation = 0;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        transform.position = cameraPoint.position;
         PlayerLook();
     }
 
@@ -35,9 +32,7 @@ public class PlayerCamera : MonoBehaviour
         xAxisRotation -= yAxisMouseMovement;
         xAxisRotation = Mathf.Clamp(xAxisRotation, bottomCameraAngle, upperCameraAngle);
 
-        yAxisRotation += xAxisMouseMovement;
-
-        transform.rotation = Quaternion.Euler(xAxisRotation, yAxisRotation, 0);
+        transform.localRotation = Quaternion.Euler(xAxisRotation, 0, 0);
         player.Rotate(Vector3.up * xAxisMouseMovement);
     }
 }

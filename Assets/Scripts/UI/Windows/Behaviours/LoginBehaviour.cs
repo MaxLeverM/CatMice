@@ -35,7 +35,7 @@ public class LoginBehaviour : PopUpWindow
             
             Animations.MoveToTargetPosition();
             
-            nicknameInputField.onValueChanged.AddListener((value) => CheckNickLeght(value));
+            nicknameInputField.onValueChanged.AddListener((value) => CheckNickLeght(value, minCharInNick, selectNameButton));
             selectNameButton.onClick.AddListener(ConfirmName);
         }
 
@@ -43,23 +43,16 @@ public class LoginBehaviour : PopUpWindow
         {
             Animations.MoveToEndPosition(() => ToggleVisibleCanvasGroup(CanvasGroup, false));
             
-            nicknameInputField.onValueChanged.RemoveListener((value) => CheckNickLeght(value));
+            nicknameInputField.onValueChanged.RemoveListener((value) => CheckNickLeght(value, minCharInNick, selectNameButton));
             selectNameButton.onClick.RemoveListener(ConfirmName);
         }
 
-        private void CheckNickLeght(string enteredNick)
-        {
-            if (enteredNick.Length >= minCharInNick)
-            {
-                selectNameButton.interactable = true;
-                return;
-            }
-            selectNameButton.interactable = false;
-        }
+        
 
         private void ConfirmName()
         {
-            //uiManager.OpenRoomBrowser(nicknameInputField.text);
+            Debug.Log(nicknameInputField.text);
+            uiManager.OpenRoomBrowser(nicknameInputField.text);
             Hide();
         }
         

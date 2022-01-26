@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -12,6 +13,16 @@ namespace UI
             canvasGroup.alpha = boolValue ? VisibleAlpha : InvisibleAlpha;
             canvasGroup.interactable = boolValue;
             canvasGroup.blocksRaycasts = boolValue;
+        }
+        
+        public void CheckNickLeght(string enteredNick, int minCharField, Button targetButton)
+        {
+            if (enteredNick.Length >= minCharField)
+            {
+                targetButton.interactable = true;
+                return;
+            }
+            targetButton.interactable = false;
         }
     }
 }

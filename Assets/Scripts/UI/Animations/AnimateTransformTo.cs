@@ -57,7 +57,7 @@ using UnityEngine;
         [ContextMenu("ScaleToTargetSize")]
         public void ScaleToTargetSize()
         {
-            transform.position = startScale;
+            transform.localScale = startScale;
             transform.DOScale(targetScale, timeToReachSize);
         }
 

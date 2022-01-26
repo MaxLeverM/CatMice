@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2551edfdde91551448ce66b3d2e3e475
+guid: 44e34bcd154436d4da48376d18101f77
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -9,11 +9,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Nature
     second: {fileID: 2100000, guid: 38ca59aaee1a3814982c5360bcbde1c8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: NatureTwoSide
-    second: {fileID: 2100000, guid: 859d1f2c1a6ca204e94cf20ae0674f25, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

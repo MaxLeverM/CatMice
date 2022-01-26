@@ -14,6 +14,7 @@ namespace Lever.UI.Windows.Behaviours
         [SerializeField] private int maxPLayerCount = 8;
         private int currentPlayerCount = 2;
 
+
         [Header("Rooms list")]
         [SerializeField] private Transform listOfRoomContent;
         [SerializeField] private RoomButtonBehaviour roomButtonPrefab;
@@ -21,12 +22,25 @@ namespace Lever.UI.Windows.Behaviours
 
         [Header("Create room")]
         [SerializeField] private TMP_InputField newServerNameInputField;
+        [SerializeField] private TextMeshProUGUI currentPlayerCountText;
         [SerializeField] private Button plusPlayerCount;
         [SerializeField] private Button minusPLayerCount;
         [SerializeField] private Button createRoomButton;
         [SerializeField] private int minRoomNameLeght = 4;
         
         private IUIManager uiManager;
+        
+        
+        public int CurrentPlayerCount
+        {
+            get => currentPlayerCount;
+            set
+            {
+                currentPlayerCount = value;
+                currentPlayerCountText.text = value.ToString();
+            }
+        }
+
 
         [Inject]
         private void Construct(UIManager uiManager)
@@ -92,7 +106,7 @@ namespace Lever.UI.Windows.Behaviours
                 plusPlayerCount.interactable = false;
                 
                 if (currentPlayerCount + additionalValue == maxPLayerCount)
-                    currentPlayerCount += additionalValue;
+                    CurrentPlayerCount += additionalValue;
                 
                 return;
             }
@@ -104,10 +118,12 @@ namespace Lever.UI.Windows.Behaviours
                 minusPLayerCount.interactable = false;
 
                 if (currentPlayerCount + additionalValue == 2)
-                    currentPlayerCount += additionalValue;
+                    CurrentPlayerCount += additionalValue;
                 return;
             }
             minusPLayerCount.interactable = true;
+
+            CurrentPlayerCount += additionalValue;
         }
     }
 }

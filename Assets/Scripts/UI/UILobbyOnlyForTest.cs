@@ -21,11 +21,11 @@ namespace Lever.UI
         [SerializeField] private TMP_Text ping;
         [SerializeField] private TMP_Text isMaster;
 
-        private LobbyNetworking lobbyNetworking;
+        private ILobbyNetworking lobbyNetworking;
         private string selectedRoom = "test";
 
         [Inject]
-        private void Construct(LobbyNetworking lobbyNetworking)
+        private void Construct(ILobbyNetworking lobbyNetworking)
         {
             this.lobbyNetworking = lobbyNetworking;
         }

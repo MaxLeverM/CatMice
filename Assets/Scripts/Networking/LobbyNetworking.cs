@@ -10,7 +10,7 @@ using Random = System.Random;
 
 namespace Lever.Networking
 {
-    public class LobbyNetworking : MonoBehaviourPunCallbacks
+    public class LobbyNetworking : MonoBehaviourPunCallbacks, ILobbyNetworking
     {
         private List<RoomInfo> rooms;
 
@@ -22,7 +22,7 @@ namespace Lever.Networking
         public List<RoomInfo> Rooms
         {
             get => rooms;
-            private set
+            set
             {
                 rooms = value;
                 OnRoomListChanged?.Invoke(rooms);
@@ -56,6 +56,11 @@ namespace Lever.Networking
         public void JoinRoom(string roomName)
         {
             PhotonNetwork.JoinRoom(roomName);
+        }
+
+        public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
         }
 
         public void StartGame()

@@ -15,6 +15,9 @@ namespace Lever.Networking
         private List<RoomInfo> rooms;
 
         public event Action<List<RoomInfo>> OnRoomListChanged;
+        public event Action<Player[]> OnPlayerListChanged;
+        public event Action OnJoinedToRoom;
+        public event Action<Player> OnMasterChanged;
 
         public List<RoomInfo> Rooms
         {
@@ -82,6 +85,22 @@ namespace Lever.Networking
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined the room");
+            OnJoinedToRoom?.Invoke();
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            OnMasterChanged?.Invoke(newMasterClient);
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            OnPlayerListChanged?.Invoke(PhotonNetwork.PlayerList);
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            OnPlayerListChanged?.Invoke(PhotonNetwork.PlayerList);
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)

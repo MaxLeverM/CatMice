@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 7;
 
-    [Header("Gravity paramaters")]
+    [Header("Gravity parameters")]
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float forceDownVelocity = -2;
     [SerializeField] private Transform groundCheckComponent;
@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
 
     [Header("Jump parameters")]
     [SerializeField] private float defaultJumpHeight = 2;
-    [SerializeField] private float bigJumpHeight = 3;
 
     [Header("Crouch parameters")]
     [SerializeField] private float crouchSpeed = 3;
@@ -33,16 +32,29 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float attackDistance = 3;
     [SerializeField] private LayerMask playerLayer;
 
+    [Header("Effects parameters")] 
+    [SerializeField] private float effectDuration = 5;
+    [SerializeField] private float speedUpMultiplier = 2;
+    [SerializeField] private float slowDownMultiplier = 0.5f;
+    [SerializeField] private float bigJumpHeight = 3;
+
+    private float playerSpeed;
+    private float speedModificator = 1;
+    private float playerJump;
     private Transform mainCamera;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
+    private bool canJump;
     private bool isGrounded;
     private bool isCrouching;
     private bool isDashing;
 
     protected virtual void Start()
     {
+        playerSpeed = runSpeed;
+        playerJump = defaultJumpHeight;
+        canJump = true;
         mainCamera = Camera.main.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
@@ -52,18 +64,20 @@ public class PlayerControl : MonoBehaviour
     {
         playerAnimator.SetBool("Crouch", isCrouching);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            PlayerJump(defaultJumpHeight);
+        if (Input.GetKeyDown(KeyCode.Space) && canJump && isGrounded)
+            PlayerJump(playerJump);
 
         SimulatePhysics();
 
         if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
         {
             Crouch();
-            MovePlayer(crouchSpeed);
+            MovePlayer(playerSpeed * speedModificator);
             return;
         }
 
+        playerSpeed = runSpeed;
+        
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching && isGrounded &&!isDashing)
             StartCoroutine(Dash());
 
@@ -73,7 +87,7 @@ public class PlayerControl : MonoBehaviour
         isCrouching = false;
         SetPlayerHeight();
 
-        MovePlayer(runSpeed);
+        MovePlayer(playerSpeed * speedModificator);
     }
 
     protected virtual void MovePlayer(float speed)
@@ -98,6 +112,7 @@ public class PlayerControl : MonoBehaviour
     protected virtual void Crouch()
     {
         isCrouching = true;
+        playerSpeed = crouchSpeed;
         SetPlayerHeight();
     }
 
@@ -142,5 +157,41 @@ public class PlayerControl : MonoBehaviour
         var cameraPosition = mainCamera.position;
         cameraPosition.y = characterController.bounds.max.y;
         mainCamera.position = cameraPosition;
+    }
+
+    public virtual void ApplyNewSpeed(bool isPositive)
+    {
+        StartCoroutine(NewSpeedCoroutine(isPositive));
+    }
+    
+    public virtual IEnumerator NewSpeedCoroutine(bool isPositive)
+    {
+        speedModificator = isPositive ? speedUpMultiplier : slowDownMultiplier;
+        yield return new WaitForSeconds(effectDuration);
+        speedModificator = 1;
+    }
+
+    public virtual void ApplyBigJump()
+    {
+        StartCoroutine(BigJumpCoroutine());
+    }
+    
+    public virtual IEnumerator BigJumpCoroutine()
+    {
+        playerJump = bigJumpHeight;
+        yield return new WaitForSeconds(effectDuration);
+        playerJump = defaultJumpHeight;
+    }
+
+    public virtual void DisableJump()
+    {
+        StartCoroutine(DisableJumpCoroutine());
+    }
+
+    public virtual IEnumerator DisableJumpCoroutine()
+    {
+        canJump = false;
+        yield return new WaitForSeconds(effectDuration);
+        canJump = true;
     }
 }

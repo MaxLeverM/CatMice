@@ -24,7 +24,7 @@ namespace Lever.Models
 
             points = _teleportationPoints.TeleportPoints;
             var randomPointIndex = Random.Range(0, points.Length);
-            player.gameObject.transform.position = points[randomPointIndex].position;
+            player.TeleportPlayer(points[randomPointIndex].position);
         }
     }
 }

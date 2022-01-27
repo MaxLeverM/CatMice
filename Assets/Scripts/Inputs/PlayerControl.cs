@@ -5,7 +5,8 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private SkinnedMeshRenderer meshRenderer;
+    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
+    [SerializeField] private Material playerMaterial;
 
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 7;
@@ -39,6 +40,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float slowDownMultiplier = 0.5f;
     [SerializeField] private float bigJumpHeight = 3;
 
+    private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
+
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
@@ -53,6 +56,8 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Start()
     {
+        playerMaterial.SetFloat(MaterialMixParameterName, 1);
+        
         playerSpeed = runSpeed;
         playerJump = defaultJumpHeight;
         canJump = true;
@@ -198,10 +203,15 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouse()
     {
-        while (meshRenderer.GetBlendShapeWeight(0) < 100)
+        var blednShapeWeight = 0;
+        while (blednShapeWeight < 100)
         {
-            var currentWeight = meshRenderer.GetBlendShapeWeight(0);
-            meshRenderer.SetBlendShapeWeight(0, currentWeight + 5);
+            blednShapeWeight += 1;
+            foreach (var meshRenderer in meshRenderers)
+            {
+                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+            }
+            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
             yield return null;
         }
     }
@@ -213,11 +223,27 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator TransformToCatCoroutine()
     {
-        while (meshRenderer.GetBlendShapeWeight(0) > 0)
+        var blednShapeWeight = 100;
+        while (blednShapeWeight > 0)
         {
-            var currentWeight = meshRenderer.GetBlendShapeWeight(0);
-            meshRenderer.SetBlendShapeWeight(0, currentWeight - 5);
+            blednShapeWeight -= 1;
+            foreach (var meshRenderer in meshRenderers)
+            {
+                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+            }
+            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
             yield return null;
         }
+    }
+
+    public virtual void TeleportPlayer(Vector3 newPosition)
+    {
+        StartCoroutine(TeleportPlayerCoroutine(newPosition));
+    }
+    
+    public virtual IEnumerator TeleportPlayerCoroutine(Vector3 newPosition)
+    {
+        yield return null;
+        transform.position = newPosition;
     }
 }

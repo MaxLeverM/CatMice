@@ -4,7 +4,13 @@
     {
         protected override void ApplyEffect(PlayerControl player)
         {
-            //TODO: Implement cat artifact logic
+            if (IsEffectPositive)
+            {
+                player.TransformToCat();
+                return;
+            }
+            
+            //TODO: Implement random teleportation
         }
     }
 }

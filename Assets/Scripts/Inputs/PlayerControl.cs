@@ -5,6 +5,7 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private SkinnedMeshRenderer meshRenderer;
 
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 7;
@@ -193,5 +194,30 @@ public class PlayerControl : MonoBehaviour
         canJump = false;
         yield return new WaitForSeconds(effectDuration);
         canJump = true;
+    }
+
+    public virtual IEnumerator TransformToMouse()
+    {
+        while (meshRenderer.GetBlendShapeWeight(0) < 100)
+        {
+            var currentWeight = meshRenderer.GetBlendShapeWeight(0);
+            meshRenderer.SetBlendShapeWeight(0, currentWeight + 5);
+            yield return null;
+        }
+    }
+
+    public virtual void TransformToCat()
+    {
+        StartCoroutine(TransformToCatCoroutine());
+    }
+    
+    public virtual IEnumerator TransformToCatCoroutine()
+    {
+        while (meshRenderer.GetBlendShapeWeight(0) > 0)
+        {
+            var currentWeight = meshRenderer.GetBlendShapeWeight(0);
+            meshRenderer.SetBlendShapeWeight(0, currentWeight - 5);
+            yield return null;
+        }
     }
 }

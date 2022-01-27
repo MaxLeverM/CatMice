@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,8 @@ namespace Lever.UI.Windows.Behaviours
         private int currentplayerCount;
         private int maxPlayerCount = 2;
 
+        private RoomInfo thisRoom;
+
         
         
         private void OnEnable()
@@ -31,13 +34,13 @@ namespace Lever.UI.Windows.Behaviours
         }
 
 
-        public void LoadData(string roomName, int maxPlayerCount, RoomBrowserBehaviour roomBrowserBehaviour)
+        public void LoadData(RoomInfo roomInfo, int maxPlayerCount, RoomBrowserBehaviour roomBrowserBehaviour)
         {
-            this.roomName = roomName;
+            thisRoom = roomInfo;
             this.maxPlayerCount = maxPlayerCount;
             roomBrowserController = roomBrowserBehaviour;
 
-            roomNameField.text = roomName;
+            roomNameField.text = roomInfo.Name;
             playerCountField.text = $"0/{maxPlayerCount}";
         }
 
@@ -58,7 +61,7 @@ namespace Lever.UI.Windows.Behaviours
         public void OpenThisRoom()
         {
             Debug.Log("Open room}");
-            roomBrowserController.GoToRoom(roomName);
+            roomBrowserController.GoToRoom(thisRoom);
             
         }
 

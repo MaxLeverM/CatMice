@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lever.Networking;
 using Lever.UI.Windows.Behaviours;
 using Lever.UI.Windows.Interfaces;
+using Photon.Realtime;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -13,11 +15,18 @@ public class UIManager : UIHelper, IUIManager
     [SerializeField] private LobbyBehaviour lobbyBehaviour;
 
     private ILoadingScreen loadingScreen;
+    private ILobbyNetworking lobbyNetworking;
 
     [Inject]
     private void Construct(LoadingScreenBehaviour loadingScreenBehaviour)
     {
         loadingScreen = loadingScreenBehaviour;
+    }
+    
+    [Inject]
+    private void Construct(LobbyNetworking lobbyBehaviour)
+    {
+        lobbyNetworking = lobbyBehaviour;
     }
     
     public void OpenLogin()
@@ -28,14 +37,48 @@ public class UIManager : UIHelper, IUIManager
     public void OpenRoomBrowser(string playerName)
     {
         Debug.Log(playerName);
+        lobbyNetworking.NickName = playerName;
+        roomBrowserBehaviour.LoadRoomList(lobbyNetworking.Rooms); ////////////////////////////////////////////////////////// HELP
         roomBrowserBehaviour.Show(playerName);
+
+        lobbyNetworking.OnRoomListChanged += roomBrowserBehaviour.LoadRoomList;
     }
 
-    public void OpenLobby(string roomName)
+    public void UnsubscribeOnCloseRoomBrowser()
     {
-        Debug.Log(roomName);
+        lobbyNetworking.OnRoomListChanged -= roomBrowserBehaviour.LoadRoomList;
+    }
+
+    public void CreateRoom(string name, int maxPlayers = 4)
+    {
+        lobbyNetworking.CreateRoom(name, (byte)maxPlayers);
+        OpenLobby(name);
+    }
+
+    public void OpenLobby(RoomInfo roomInfo)
+    {
         OpenLoadingScreen(true);
-        lobbyBehaviour.Show(roomName);
+        lobbyBehaviour.Show(roomInfo);
+        
+        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
+        lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
+        
+        lobbyNetworking.JoinRoom(roomInfo.Name);
+    }
+    
+    public void OpenLobby(string newRoomName)
+    {
+        OpenLoadingScreen(true);
+        lobbyBehaviour.Show(newRoomName);
+        
+        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
+        lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
+        
+    }
+
+    public void UnsubscribeOnCloseLobby()
+    {
+        lobbyNetworking.OnPlayerListChanged -= lobbyBehaviour.UpdatePlayersList;
     }
 
     public void OpenLevelLoadScreen()

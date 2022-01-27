@@ -1,4 +1,6 @@
-﻿using Lever.UI.Windows.Interfaces;
+﻿using System.Collections.Generic;
+using Lever.UI.Windows.Interfaces;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -18,7 +20,7 @@ namespace Lever.UI.Windows.Behaviours
         [Header("Rooms list")]
         [SerializeField] private Transform listOfRoomContent;
         [SerializeField] private RoomButtonBehaviour roomButtonPrefab;
-        private RoomButtonBehaviour[] loadedRoomsArray;
+        private RoomButtonBehaviour[] loadedRoomsArray = new RoomButtonBehaviour[0];
 
         [Header("Create room")]
         [SerializeField] private TMP_InputField newServerNameInputField;
@@ -60,8 +62,9 @@ namespace Lever.UI.Windows.Behaviours
             
             newServerNameInputField.onValueChanged.AddListener(
                 (value) => CheckNickLeght(value, minRoomNameLeght, createRoomButton));
+            createRoomButton.onClick.AddListener(CreateRoomButton);
             
-            GetRoomList();
+            
         }
 
         public void Hide()
@@ -72,30 +75,32 @@ namespace Lever.UI.Windows.Behaviours
             
             newServerNameInputField.onValueChanged.RemoveListener(
                 (value) => CheckNickLeght(value, minRoomNameLeght, createRoomButton));
+            
+            createRoomButton.onClick.RemoveListener(CreateRoomButton);
+            uiManager.UnsubscribeOnCloseRoomBrowser();
         }
 
-        public void GetRoomList()
-        {
-            //Чтото чтоб отправить запрос и получить его в LoadRoomList();
-        }
 
-        public void LoadRoomList(string[] loadedRoomsNames) // я хз что получаем
+        public void LoadRoomList(List<RoomInfo> loadedRoomsNames) // я хз что получаем
         {
             foreach (var room in loadedRoomsArray)
                 Destroy(room.gameObject);
 
-            foreach (var roomName in loadedRoomsNames)
+            if (loadedRoomsNames == null)
+                return;
+            
+            foreach (var roomInfo in loadedRoomsNames)
             {
                 var newRoomButton = Instantiate(roomButtonPrefab, listOfRoomContent);
-                newRoomButton.LoadData(roomName, 8, this);
+                newRoomButton.LoadData(roomInfo, roomInfo.MaxPlayers, this);
             }
         }
 
-        public void GoToRoom(string roomName)
+        public void GoToRoom(RoomInfo roomInfo)
         {
             Hide();
             
-            uiManager.OpenLobby(roomName);
+            uiManager.OpenLobby(roomInfo);
         }
 
         private void AddPlayer(int additionalValue)
@@ -124,6 +129,12 @@ namespace Lever.UI.Windows.Behaviours
             minusPLayerCount.interactable = true;
 
             CurrentPlayerCount += additionalValue;
+        }
+
+        private void CreateRoomButton()
+        {
+            uiManager.CreateRoom(newServerNameInputField.text, currentPlayerCount);
+            Hide();
         }
     }
 }

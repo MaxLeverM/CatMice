@@ -1,4 +1,6 @@
-﻿namespace Lever.UI.Windows.Interfaces
+﻿using Photon.Realtime;
+
+namespace Lever.UI.Windows.Interfaces
 {
     public interface IUIManager
     {
@@ -6,7 +8,13 @@
 
         public void OpenRoomBrowser(string playerName);
 
-        public void OpenLobby(string roomName);
+        public void UnsubscribeOnCloseRoomBrowser();
+
+        public void CreateRoom(string name, int maxPlayers = 4);
+
+        public void OpenLobby(RoomInfo roomInfo);
+
+        public void UnsubscribeOnCloseLobby();
 
         public void OpenLevelLoadScreen();
 

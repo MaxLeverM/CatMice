@@ -6,12 +6,12 @@ namespace Lever.Models
     public class CatArtifact : DualityArtifact
     {
         private Transform[] points;
-        private ITeleportationPoints teleportationPoints;
+        private TeleportationPoints _teleportationPoints;
 
         [Inject]
-        private void Construct(ITeleportationPoints teleportationPoints)
+        private void Construct(TeleportationPoints teleportationPoints)
         {
-            this.teleportationPoints = teleportationPoints;
+            _teleportationPoints = teleportationPoints;
         }
         
         protected override void ApplyEffect(PlayerControl player)
@@ -22,7 +22,7 @@ namespace Lever.Models
                 return;
             }
 
-            points = teleportationPoints.GetPoints();
+            points = _teleportationPoints.TeleportPoints;
             var randomPointIndex = Random.Range(0, points.Length);
             player.gameObject.transform.position = points[randomPointIndex].position;
         }

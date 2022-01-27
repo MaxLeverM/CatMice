@@ -7,6 +7,14 @@ public class TeleportationPointsInstaller : MonoInstaller
     
     public override void InstallBindings()
     {
-        Container.Bind<TeleportationPoints>().FromInstance(teleportationPoints).AsSingle();
+        BindTeleportationPoints();
+    }
+
+    private void BindTeleportationPoints()
+    {
+        Container
+            .Bind<TeleportationPoints>()
+            .FromInstance(teleportationPoints)
+            .AsSingle();
     }
 }

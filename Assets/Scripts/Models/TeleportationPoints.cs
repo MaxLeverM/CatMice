@@ -1,13 +1,8 @@
 using UnityEngine;
 
-public class TeleportationPoints : MonoBehaviour, ITeleportationPoints
+public class TeleportationPoints : MonoBehaviour
 {
     [SerializeField] private Transform[] teleportPoints;
     
     public Transform[] TeleportPoints => teleportPoints;
-    
-    public Transform[] GetPoints()
-    {
-        return teleportPoints;
-    }
 }

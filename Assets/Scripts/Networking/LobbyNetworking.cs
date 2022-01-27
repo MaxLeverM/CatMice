@@ -10,16 +10,19 @@ using Random = System.Random;
 
 namespace Lever.Networking
 {
-    public class LobbyNetworking : MonoBehaviourPunCallbacks
+    public class LobbyNetworking : MonoBehaviourPunCallbacks, ILobbyNetworking
     {
         private List<RoomInfo> rooms;
 
         public event Action<List<RoomInfo>> OnRoomListChanged;
+        public event Action<Player[]> OnPlayerListChanged;
+        public event Action OnJoinedToRoom;
+        public event Action<Player> OnMasterChanged;
 
         public List<RoomInfo> Rooms
         {
             get => rooms;
-            private set
+            set
             {
                 rooms = value;
                 OnRoomListChanged?.Invoke(rooms);
@@ -55,6 +58,11 @@ namespace Lever.Networking
             PhotonNetwork.JoinRoom(roomName);
         }
 
+        public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
         public void StartGame()
         {
             PhotonNetwork.LoadLevel(SceneNames.Multiplayer);
@@ -82,6 +90,22 @@ namespace Lever.Networking
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined the room");
+            OnJoinedToRoom?.Invoke();
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            OnMasterChanged?.Invoke(newMasterClient);
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            OnPlayerListChanged?.Invoke(PhotonNetwork.PlayerList);
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            OnPlayerListChanged?.Invoke(PhotonNetwork.PlayerList);
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)

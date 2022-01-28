@@ -2,6 +2,7 @@
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Lever.UI.Windows.Behaviours
@@ -14,7 +15,8 @@ namespace Lever.UI.Windows.Behaviours
         [SerializeField] private PlayerInListBehaviour playerInListPrefab;
         [SerializeField] private PlayerInListBehaviour[] spawnedPlayerList = new PlayerInListBehaviour[0];
         [SerializeField] private Transform contentHolder;
-        
+        [SerializeField] private Button startGameButton;
+
         private string currentRoomName;
 
         private IUIManager uiManager;
@@ -23,6 +25,7 @@ namespace Lever.UI.Windows.Behaviours
         private void Construct(UIManager uiManager)
         {
             this.uiManager = uiManager;
+            startGameButton.onClick.AddListener(StartGame);
         }
         
         
@@ -33,6 +36,11 @@ namespace Lever.UI.Windows.Behaviours
             
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
+        }
+
+        private void StartGame()
+        {
+            uiManager.StartGame();
         }
 
         public void Show(string roomName)

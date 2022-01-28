@@ -55,6 +55,11 @@ public class UIManager : UIHelper, IUIManager
         OpenLobby(name);
     }
 
+    public void StartGame()
+    {
+        lobbyNetworking.StartGame();
+    }
+
     public void OpenLobby(RoomInfo roomInfo)
     {
         OpenLoadingScreen(true);
@@ -73,7 +78,6 @@ public class UIManager : UIHelper, IUIManager
         
         lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
-        
     }
 
     public void UnsubscribeOnCloseLobby()

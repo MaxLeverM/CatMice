@@ -24,9 +24,9 @@ public class UIManager : UIHelper, IUIManager
     }
     
     [Inject]
-    private void Construct(LobbyNetworking lobbyBehaviour)
+    private void Construct(ILobbyNetworking lobbyNetworking)
     {
-        lobbyNetworking = lobbyBehaviour;
+        this.lobbyNetworking = lobbyNetworking;
     }
     
     public void OpenLogin()
@@ -38,7 +38,7 @@ public class UIManager : UIHelper, IUIManager
     {
         Debug.Log(playerName);
         lobbyNetworking.NickName = playerName;
-        roomBrowserBehaviour.LoadRoomList(lobbyNetworking.Rooms); ////////////////////////////////////////////////////////// HELP
+        roomBrowserBehaviour.LoadRoomList(lobbyNetworking.Rooms); ////////////////////////////////////////////////////////// HELP 
         roomBrowserBehaviour.Show(playerName);
 
         lobbyNetworking.OnRoomListChanged += roomBrowserBehaviour.LoadRoomList;

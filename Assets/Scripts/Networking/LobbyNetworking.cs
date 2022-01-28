@@ -50,7 +50,7 @@ namespace Lever.Networking
 
         public void CreateRoom(string name, byte maxPlayers = 4)
         {
-            PhotonNetwork.CreateRoom(name, new RoomOptions {MaxPlayers = maxPlayers, IsOpen = true, EmptyRoomTtl = 0});
+            PhotonNetwork.CreateRoom(name, new RoomOptions {MaxPlayers = maxPlayers, IsOpen = true, IsVisible = true, EmptyRoomTtl = 0}, TypedLobby.Default);
         }
 
         public void JoinRoom(string roomName)

@@ -203,15 +203,14 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouse()
     {
-        var blednShapeWeight = 0;
-        while (blednShapeWeight < 100)
+        for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
-            blednShapeWeight += 1;
             foreach (var meshRenderer in meshRenderers)
             {
-                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+                meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(0,100,EasingSmoothSquared(i)));
             }
-            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
+            playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
+            
             yield return null;
         }
     }
@@ -223,15 +222,14 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator TransformToCatCoroutine()
     {
-        var blednShapeWeight = 100;
-        while (blednShapeWeight > 0)
+        for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
-            blednShapeWeight -= 1;
             foreach (var meshRenderer in meshRenderers)
             {
-                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+                meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(100,0,EasingSmoothSquared(i)));
             }
-            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
+            playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
+            
             yield return null;
         }
     }
@@ -245,5 +243,10 @@ public class PlayerControl : MonoBehaviour
     {
         yield return null;
         transform.position = newPosition;
+    }
+
+    private float EasingSmoothSquared(float x)
+    {
+        return x < 0.5f ? x * x * 2 : (1 - (1 - x) * (1 - x) * 2);
     }
 }

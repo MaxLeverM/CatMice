@@ -5,8 +5,7 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
-    [SerializeField] private Material playerMaterial;
+    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;    
 
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 7;
@@ -42,6 +41,7 @@ public class PlayerControl : MonoBehaviour
 
     private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
 
+    private Material playerMaterial;
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
@@ -56,6 +56,7 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Start()
     {
+        playerMaterial = meshRenderers[0].material;
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
         
         playerSpeed = runSpeed;
@@ -203,15 +204,14 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouse()
     {
-        var blednShapeWeight = 0;
-        while (blednShapeWeight < 100)
+        for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
-            blednShapeWeight += 1;
             foreach (var meshRenderer in meshRenderers)
             {
-                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+                meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(0,100,EasingSmoothSquared(i)));
             }
-            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
+            playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
+            
             yield return null;
         }
     }
@@ -223,15 +223,14 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator TransformToCatCoroutine()
     {
-        var blednShapeWeight = 100;
-        while (blednShapeWeight > 0)
+        for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
-            blednShapeWeight -= 1;
             foreach (var meshRenderer in meshRenderers)
             {
-                meshRenderer.SetBlendShapeWeight(0, blednShapeWeight);
+                meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(100,0,EasingSmoothSquared(i)));
             }
-            playerMaterial.SetFloat(MaterialMixParameterName, (float)blednShapeWeight/100);
+            playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
+            
             yield return null;
         }
     }
@@ -245,5 +244,10 @@ public class PlayerControl : MonoBehaviour
     {
         yield return null;
         transform.position = newPosition;
+    }
+
+    private float EasingSmoothSquared(float x)
+    {
+        return x < 0.5f ? x * x * 2 : (1 - (1 - x) * (1 - x) * 2);
     }
 }

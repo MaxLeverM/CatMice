@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 427048860652899799, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1583568388728552547}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
 --- !u!1 &7175208498714312983 stripped
@@ -62,11 +66,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 427048860652899794, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8269578809897606040 stripped
+--- !u!1 &5211240325229477027 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1494397574105519965, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3327126339616960614, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1583568388728552547 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8324815671971770534, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3225098178821546934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211240325229477027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: Jump
+  - Type: 4
+    SynchronizeType: 2
+    Name: Crouch
+  - Type: 9
+    SynchronizeType: 2
+    Name: Kick
+  - Type: 1
+    SynchronizeType: 2
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!114 &7385437953300491775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +126,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 7385437953300491777}
-  - {fileID: 7385437953300491776}
+  - {fileID: 3225098178821546934}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -107,33 +146,3 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 1
---- !u!114 &7385437953300491776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8269578809897606040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 1
-    Name: Jump
-  - Type: 4
-    SynchronizeType: 1
-    Name: Crouch
-  - Type: 9
-    SynchronizeType: 1
-    Name: Kick
-  - Type: 1
-    SynchronizeType: 2
-    Name: Speed
-  m_SynchronizeLayers:
-  - SynchronizeType: 1
-    LayerIndex: 0

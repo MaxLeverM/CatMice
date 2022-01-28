@@ -9,7 +9,7 @@ namespace Lever.ZenjectCustom
         [SerializeField] private LobbyNetworking lobbyNetworking;
         public override void InstallBindings()
         {
-            Container.Bind<LobbyNetworking>().FromInstance(lobbyNetworking).AsSingle().NonLazy();
+            Container.Bind<ILobbyNetworking>().FromInstance(lobbyNetworking).AsSingle().NonLazy();
         }
     }
 }

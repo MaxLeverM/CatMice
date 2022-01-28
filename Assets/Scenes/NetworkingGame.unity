@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 215482698}
   - component: {fileID: 215482697}
   - component: {fileID: 215482696}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874075343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.79, y: 0, z: -3.29}
+  m_LocalPosition: {x: 2.79, y: 1, z: -3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1257019709}
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   catPrefabName: NetworkPlayer
+  playerPrefab: {fileID: 427048860652899794, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   mousePrefabName: 
   spawnPoints:
   - {fileID: 1874075344}

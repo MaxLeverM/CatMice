@@ -5,8 +5,7 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
-    [SerializeField] private Material playerMaterial;
+    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;    
 
     [Header("Default movement parameters")]
     [SerializeField] private float runSpeed = 7;
@@ -42,6 +41,7 @@ public class PlayerControl : MonoBehaviour
 
     private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
 
+    private Material playerMaterial;
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
@@ -56,6 +56,7 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Start()
     {
+        playerMaterial = meshRenderers[0].material;
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
         
         playerSpeed = runSpeed;

@@ -44,13 +44,11 @@ namespace Lever.Networking
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.GameVersion = Application.version;
             PhotonNetwork.ConnectUsingSettings();
-
-            JoinLobby();
         }
 
         public void CreateRoom(string name, byte maxPlayers = 4)
         {
-            PhotonNetwork.CreateRoom(name, new RoomOptions {MaxPlayers = maxPlayers, IsOpen = true, IsVisible = true, EmptyRoomTtl = 0}, TypedLobby.Default);
+            PhotonNetwork.CreateRoom(name, new RoomOptions {MaxPlayers = maxPlayers, IsVisible = true, IsOpen = true}, TypedLobby.Default);
         }
 
         public void JoinRoom(string roomName)
@@ -70,7 +68,7 @@ namespace Lever.Networking
 
         private void JoinLobby()
         {
-            PhotonNetwork.JoinLobby();
+            PhotonNetwork.JoinLobby(TypedLobby.Default);
         }
 
         private void LeaveLobby()
@@ -85,6 +83,7 @@ namespace Lever.Networking
         public override void OnConnectedToMaster()
         {
             Debug.Log("Connected to Master");
+            JoinLobby();
         }
 
         public override void OnJoinedRoom()
@@ -116,6 +115,16 @@ namespace Lever.Networking
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             Rooms = roomList;
+        }
+
+        public override void OnCreatedRoom()
+        {
+            Debug.Log("Created room");
+        }
+
+        public override void OnJoinedLobby()
+        {
+            Debug.Log("Rooms count:" + PhotonNetwork.CountOfRooms);
         }
 
         #endregion

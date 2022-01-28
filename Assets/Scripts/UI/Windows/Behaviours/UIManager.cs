@@ -38,7 +38,7 @@ public class UIManager : UIHelper, IUIManager
     {
         Debug.Log(playerName);
         lobbyNetworking.NickName = playerName;
-        roomBrowserBehaviour.LoadRoomList(lobbyNetworking.Rooms); ////////////////////////////////////////////////////////// HELP 
+        roomBrowserBehaviour.LoadRoomList(lobbyNetworking.Rooms);
         roomBrowserBehaviour.Show(playerName);
 
         lobbyNetworking.OnRoomListChanged += roomBrowserBehaviour.LoadRoomList;

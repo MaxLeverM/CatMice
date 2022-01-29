@@ -7,12 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lake
-  m_Shader: {fileID: -6465566751694194690, guid: 057e9dd5b9b19934f8d8901ff1abf6b9, type: 3}
-  m_ShaderKeywords: 
+  m_Name: Ground
+  m_Shader: {fileID: -6465566751694194690, guid: b16122b5c2ae01d48a59fd49dc4991e1, type: 3}
+  m_ShaderKeywords: _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -76,16 +76,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_07cfe0e12a72447da5169379a65d45d1: 0
-    - Vector1_1180277d7d8e46e3a151be3d64b9e7d8: 6
-    - Vector1_5e271c5871964e2d9362b061f77b5c3b: 0
-    - Vector1_6d403a4a92ec49859005942e39ad9cbb: 0
-    - Vector1_8dbc3bcadb524190976478f45ca3128a: 181.1
-    - Vector1_a237fc085d834d1eb1ee8aa3e69e4cde: 1.18
-    - Vector1_bcaf91dd734f484aac60ec43b43da6c2: 9.25
-    - Vector1_ce7ebcf31b954c0aa7594de774d2d1c2: 0.815
-    - Vector1_dc832277df684f70898704c904270f1a: 36.3
-    - Vector1_eea6f5b2eb17428b891eb833efa4916b: 1.18
+    - Vector1_0628de111035490d825a0fc227118ed1: 0.07
+    - Vector1_8895d5004776402b8129010b50357199: 0.19
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -105,25 +97,22 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.18
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WorkflowMode: 1
+    - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_d037d92439824aa3af937607acbfbe87: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0}
-    - Color_d037d92439824aa3af937607acbfbe87_1: {r: 0.3448291, g: 0.4616301, b: 0.5943396, a: 1}
-    - Vector2_58538aab6d4e4978b52a2e681b873f2d: {r: 0.03, g: 0.08, b: 0, a: 0}
-    - Vector2_6b3d8350a02a423c8bb2c356816848a5: {r: 0.2, g: 1.07, b: 0, a: 0}
-    - Vector2_e336be5d8ea14f02ae1434862bac601d: {r: 7.77, g: -0.2, b: 0, a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - Color_55e6321052c54680af1609c0c9db8e36: {r: 0.5943396, g: 0.2357699, b: 0.11027052, a: 0}
+    - Color_d688ae03aa974fcda2198949a42001d7: {r: 0.5310434, g: 0.8396226, b: 0, a: 0}
+    - _BaseColor: {r: 0.3679245, g: 0.27304345, b: 0.2516465, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &7157407327467696721
+--- !u!114 &8745567705920507262
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

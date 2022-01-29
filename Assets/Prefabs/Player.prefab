@@ -71,7 +71,6 @@ MonoBehaviour:
   - {fileID: 8477567669440566980}
   - {fileID: 240424240883897138}
   - {fileID: 5068272595581537249}
-  playerMaterial: {fileID: 2100000, guid: 34b30043aa42ff845bc1d3b10ff4c9d2, type: 2}
   runSpeed: 7
   gravity: -9.81
   forceDownVelocity: -2
@@ -232,7 +231,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -265,14 +264,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 427048860652899796}
     m_Modifications:
-    - target: {fileID: 546372522923123635, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 546372522923123635, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 719402861913517083, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -340,14 +331,6 @@ PrefabInstance:
     - target: {fileID: 3696913770491063340, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
       propertyPath: m_Layer
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3775524028034760342, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3775524028034760342, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4362932070235870163, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
       propertyPath: m_Layer
@@ -444,14 +427,6 @@ PrefabInstance:
     - target: {fileID: 7998043546496377476, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
       propertyPath: m_Layer
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8171056507460101701, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8171056507460101701, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8331991939266238021, guid: 0ade1715bd957074f8686df3eb4fc0ad, type: 3}
       propertyPath: m_Layer

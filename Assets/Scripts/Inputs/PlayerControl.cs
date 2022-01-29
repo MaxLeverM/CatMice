@@ -28,6 +28,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Dash settings")]
     [SerializeField] private float dashSpeed = 20;
     [SerializeField] private float dashTime = 0.3f;
+    [SerializeField] private float dashCooldownTime = 3;
 
     [Header("Attack parameters")]
     [SerializeField] private float attackDistance = 3;
@@ -53,6 +54,7 @@ public class PlayerControl : MonoBehaviour
     private bool isGrounded;
     private bool isCrouching;
     private bool isDashing;
+    private float nextDashTime = 0;
 
     protected virtual void Start()
     {
@@ -85,7 +87,7 @@ public class PlayerControl : MonoBehaviour
 
         playerSpeed = runSpeed;
         
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouching && isGrounded &&!isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime && !isCrouching && isGrounded)
             StartCoroutine(Dash());
 
         if (Input.GetMouseButtonDown(0))
@@ -127,8 +129,10 @@ public class PlayerControl : MonoBehaviour
     {
         isDashing = true;
         var startTime = Time.time;
+        nextDashTime = startTime + dashCooldownTime;
         while (Time.time < startTime + dashTime)
         {
+            if (!isDashing) yield break;
             characterController.Move(transform.forward * dashSpeed * Time.deltaTime);
             yield return null;
         }
@@ -243,6 +247,7 @@ public class PlayerControl : MonoBehaviour
     public virtual IEnumerator TeleportPlayerCoroutine(Vector3 newPosition)
     {
         yield return null;
+        isDashing = false;
         transform.position = newPosition;
     }
 

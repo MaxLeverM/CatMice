@@ -29,7 +29,6 @@ public class ArtifactSpawner : MonoBehaviour
             foreach (var point in spawnPoints)
             {
                 var artifactIndex = Random.Range(0, artifactPrefabs.Length);
-                //Instantiate(artifactPrefabs[artifactIndex], point.position, Quaternion.identity);
                 diContainer.InstantiatePrefab(artifactPrefabs[artifactIndex], point.position, Quaternion.identity,
                     null);
             }

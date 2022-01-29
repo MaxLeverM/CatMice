@@ -15,7 +15,6 @@ public class TeleportationPointsInstaller : MonoInstaller
         Container
             .Bind<TeleportationPoints>()
             .FromInstance(teleportationPoints)
-            .AsSingle()
-            .NonLazy();
+            .AsSingle();
     }
 }

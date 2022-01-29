@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
 
     private float xAxisRotation = 0;
 
-    private void Start()
+    protected virtual void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }

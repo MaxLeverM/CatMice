@@ -132,6 +132,7 @@ public class PlayerControl : MonoBehaviour
         nextDashTime = startTime + dashCooldownTime;
         while (Time.time < startTime + dashTime)
         {
+            if (!isDashing) yield break;
             characterController.Move(transform.forward * dashSpeed * Time.deltaTime);
             yield return null;
         }
@@ -246,6 +247,7 @@ public class PlayerControl : MonoBehaviour
     public virtual IEnumerator TeleportPlayerCoroutine(Vector3 newPosition)
     {
         yield return null;
+        isDashing = false;
         transform.position = newPosition;
     }
 

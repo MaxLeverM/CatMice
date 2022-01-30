@@ -109,6 +109,7 @@ class PlayerControlNetworking : PlayerControl
     {
         isDead = true;
         OnDead?.Invoke();
+        playerAnimator.SetBool("Death", isDead);
         StartCoroutine(RespawnTimer());
     }
 
@@ -119,8 +120,8 @@ class PlayerControlNetworking : PlayerControl
             OnTimeToRespawnChanged?.Invoke(timeToRespawn - i);
             yield return new WaitForSeconds(1f);
         }
-
         isDead = false;
+        playerAnimator.SetBool("Death", isDead);
         OnRespawn?.Invoke();
     }
 }

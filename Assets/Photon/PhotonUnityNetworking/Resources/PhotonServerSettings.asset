@@ -39,6 +39,11 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - OnLevelLoaded
+  - SpawnPlayer
+  - DeadNetwork
+  - TransformToCat
+  - TransformToCatNetwork
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

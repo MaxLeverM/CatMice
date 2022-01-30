@@ -5,7 +5,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Camera look parameters")]
-    [Range(0f, 100f)]
     [SerializeField] private float lookSensativity = 100;
     [Range(-90f, -60f)]
     [SerializeField] private float bottomCameraAngle = -60;
@@ -14,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
 
     private float xAxisRotation = 0;
 
-    private void Start()
+    protected virtual void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }

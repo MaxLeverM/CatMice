@@ -7,6 +7,13 @@ namespace Lever.Models
     {
         private Transform[] points;
         private TeleportationPoints _teleportationPoints;
+        private Vector3 teleportPoint;
+
+        public Vector3 TeleportPoint
+        {
+            get => teleportPoint;
+            set => teleportPoint = value;
+        }
 
         [Inject]
         private void Construct(TeleportationPoints teleportationPoints)
@@ -22,9 +29,9 @@ namespace Lever.Models
                 return;
             }
 
-            points = _teleportationPoints.TeleportPoints;
-            var randomPointIndex = Random.Range(0, points.Length);
-            player.TeleportPlayer(points[randomPointIndex].position);
+            // points = _teleportationPoints.TeleportPoints;
+            // var randomPointIndex = Random.Range(0, points.Length);
+            player.TeleportPlayer(teleportPoint);
         }
     }
 }

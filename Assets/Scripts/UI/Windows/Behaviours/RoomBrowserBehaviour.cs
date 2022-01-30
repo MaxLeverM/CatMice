@@ -83,7 +83,7 @@ namespace Lever.UI.Windows.Behaviours
 
         public void LoadRoomList(List<RoomInfo> loadedRoomsNames) // я хз что получаем
         {
-            foreach (var room in loadedRoomsArray)
+            foreach (Transform room in listOfRoomContent)
                 Destroy(room.gameObject);
 
             if (loadedRoomsNames == null)

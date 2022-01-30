@@ -90,14 +90,13 @@ namespace Lever.UI.Windows.Behaviours
         {
             UpdatePlayerCount(playersArray.Length);
             
-            foreach (var spawnedCell in spawnedPlayerList)
+            foreach (Transform spawnedCell in contentHolder)
                 Destroy(spawnedCell.gameObject);
-            spawnedPlayerList = new List<PlayerInListBehaviour>();
             
             foreach (var player in playersArray)
             {
                 var newCell = Instantiate(playerInListPrefab, contentHolder);
-                spawnedPlayerList.Add(newCell);
+                //spawnedPlayerList.Add(newCell);
                 newCell.LoadData(player);
             }
         }

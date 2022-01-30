@@ -26,8 +26,8 @@ public abstract class DualityArtifact : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var player = other.GetComponent<PlayerControl>();
-        if (player != null && !player.IsHunter)
+        var player = other.GetComponent<PlayerControlNetworking>();
+        if (player != null && !player.IsHunter && player.GetPhotonView.IsMine)
         {
             ApplyEffect(player);
             Destroy(gameObject);

@@ -11,11 +11,13 @@ class PlayerControlNetworking : PlayerControl
     [SerializeField] private int timeToRespawn = 5;
     
     [SerializeField] private bool isDead = false;
-    
+
+    public PhotonView GetPhotonView => photonView;
     public event Action OnKillVictim;
     public event Action OnRespawn;
     public event Action<int> OnTimeToRespawnChanged;
     public event Action OnDead;
+    public event Action OnTransformToCat;
 
     protected override void Start()
     {
@@ -58,9 +60,28 @@ class PlayerControlNetworking : PlayerControl
             }
         }
     }
+
+    public void TransformToMouse()
+    {
+        photonView.RPC("TransformToMouseNetwork", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void TransformToMouseNetwork()
+    {
+        StartCoroutine(TransformToMouseCoroutine());
+    }
+
+    public void TransformToCat(bool withCallback)
+    {
+        if(withCallback)
+            OnTransformToCat?.Invoke();
+        photonView.RPC("TransformToCatNetwork", RpcTarget.All);
+    }
     
     public override void TransformToCat()
     {
+        OnTransformToCat?.Invoke();
         photonView.RPC("TransformToCatNetwork", RpcTarget.All);
     }
 

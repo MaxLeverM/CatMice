@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019206843}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f43e5027cc9c3264883484a84a29ef56, type: 3}
   m_Name: 
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019206843}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c148e5bf01b4fc39fe95addbb6ccd4b, type: 3}
   m_Name: 
@@ -1058,6 +1058,7 @@ MonoBehaviour:
   - {fileID: 2059253666}
   - {fileID: 1164968589}
   - {fileID: 1417990907}
+  teleportPoints: []
   spawnFrequency: 10
 --- !u!137 &1078876391 stripped
 SkinnedMeshRenderer:
@@ -1997,14 +1998,6 @@ PrefabInstance:
     - target: {fileID: 8071315929895757215, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_Layer
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477567669440566980, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477567669440566980, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8500895580989682967, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_Layer

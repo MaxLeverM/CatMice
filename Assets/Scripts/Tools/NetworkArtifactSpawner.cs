@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Lever.Models;
 using Photon.Pun;
-using Unity.Mathematics;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 public class NetworkArtifactSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] artifactPrefabs;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private float spawnFrequency = 10;
     
     private void Start()
@@ -28,8 +26,11 @@ public class NetworkArtifactSpawner : MonoBehaviour
                 var artifact = PhotonNetwork.Instantiate(artifactPrefabs[artifactIndex].name, point.position,
                     Quaternion.identity);
                 CatArtifact catArtifact;
-                if(artifact.TryGetComponent(out catArtifact))
-                    catArtifact.TeleportPoint = spawnPoints[0].position;
+                if (artifact.TryGetComponent(out catArtifact))
+                {
+                    var teleportIndex = Random.Range(0, teleportPoints.Length);
+                    catArtifact.TeleportPoint = teleportPoints[teleportIndex].position;
+                }
             }
 
             yield return new WaitForSeconds(spawnFrequency);

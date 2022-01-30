@@ -279,7 +279,7 @@ public class PlayerControl : MonoBehaviour
         isTransforming = true;
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
-        for (float i = 0; i < 1; i += Time.deltaTime / 3)
+        for (float i = 0; i < 1; i += Time.deltaTime / 2)
         {
             SimulatePhysics();
             foreach (var meshRenderer in meshRenderers)

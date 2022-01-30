@@ -18,10 +18,14 @@ namespace Lever.Networking
         private int connectedPlayers = 0;
         private const int TryToSpawn = 10;
         private GameObject player;
+        private PlayerControlNetworking playerControlNetworking;
 
         private void Start()
         {
             player = PhotonNetwork.Instantiate(catPrefabName, spawnPoints[0].position, spawnPoints[0].rotation);
+            playerControlNetworking = player.GetComponent<PlayerControlNetworking>();
+            playerControlNetworking.OnRespawn += ()=> RespawnPlayer(player.transform);
+            
             photonView = PhotonView.Get(this);
             photonView.RPC("OnLevelLoaded", RpcTarget.MasterClient);
         }
@@ -52,6 +56,15 @@ namespace Lever.Networking
                 }
                 photonView.RPC("SpawnPlayer", playerList[i], index);
             }
+
+            int whoIsCat = Random.Range(0, playerList.Length);
+            photonView.RPC("TransformToCat", playerList[whoIsCat]);
+        }
+
+        [PunRPC]
+        private void TransformToCat()
+        {
+            playerControlNetworking.TransformToCat();
         }
 
         [PunRPC]

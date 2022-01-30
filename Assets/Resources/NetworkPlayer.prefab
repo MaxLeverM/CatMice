@@ -161,11 +161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 7175208498714312976}
   playerAnimator: {fileID: 1583568388728552547}
-  meshRenderers:
-  - {fileID: 1429899827115710977}
-  - {fileID: 7289199291494539255}
-  - {fileID: 2317180772206020388}
-  runSpeed: 7
+  playerMesh: {fileID: 1429899827115710977}
+  firstEyeMesh: {fileID: 7289199291494539255}
+  secondEyeMesh: {fileID: 2317180772206020388}
+  victimFov: 70
+  hunterFov: 50
+  victimRunSpeed: 7
+  hunterRunSpeed: 10
   gravity: -9.81
   forceDownVelocity: -2
   groundCheckComponent: {fileID: 7175208499308184429}
@@ -174,7 +176,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   defaultJumpHeight: 2
-  crouchSpeed: 3
+  victimCrouchSpeed: 3
+  hunterCrouchSpeed: 4
   crouchingHeight: 1
   crouchingCenter: {x: 0, y: -0.5, z: 0}
   dashSpeed: 20
@@ -188,8 +191,11 @@ MonoBehaviour:
   speedUpMultiplier: 2
   slowDownMultiplier: 0.5
   bigJumpHeight: 3
+  isHunter: 0
   playerModel: {fileID: 5211240325229477027}
   photonView: {fileID: 7385437953300491775}
+  timeToRespawn: 5
+  isDead: 0
 --- !u!114 &7385437953300491775
 MonoBehaviour:
   m_ObjectHideFlags: 0

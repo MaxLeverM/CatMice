@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
-    [SerializeField] private Animator playerAnimator;
+    [SerializeField] protected Animator playerAnimator;
     [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private SkinnedMeshRenderer firstEyeMesh;
     [SerializeField] private SkinnedMeshRenderer secondEyeMesh;
@@ -39,7 +39,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float dashCooldownTime = 3;
 
     [Header("Attack parameters")]
-    [SerializeField] private float attackDistance = 3;
+    [SerializeField]
+    protected float attackDistance = 3;
     [SerializeField] private LayerMask playerLayer;
 
     [Header("Effects parameters")] 
@@ -47,6 +48,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float speedUpMultiplier = 2;
     [SerializeField] private float slowDownMultiplier = 0.5f;
     [SerializeField] private float bigJumpHeight = 3;
+    [SerializeField] private bool isHunter = false;
 
     private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
 
@@ -55,7 +57,7 @@ public class PlayerControl : MonoBehaviour
     private float speedModificator = 1;
     private float playerJump;
     private Camera mainCamera;
-    private Transform mainCameraTransform;
+    protected Transform mainCameraTransform;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
@@ -67,7 +69,6 @@ public class PlayerControl : MonoBehaviour
     private bool isTransforming;
     private float nextDashTime = 0;
     private Coroutine heightRoutine;
-    private bool isHunter = false;
     private SkinnedMeshRenderer[] meshRenderers;
 
     public bool IsHunter
@@ -206,6 +207,11 @@ public class PlayerControl : MonoBehaviour
         {
             //TODO: kill the mouse
         }
+    }
+
+    public virtual void Dead()
+    {
+        
     }
 
     protected virtual void SimulatePhysics()

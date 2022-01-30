@@ -1,4 +1,6 @@
-﻿using Lever.UI.Windows.Interfaces;
+﻿using System.Collections.Generic;
+using Lever.UI.Windows.Interfaces;
+using ModestTree;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace Lever.UI.Windows.Behaviours
         [SerializeField] private TextMeshProUGUI currentPlayerCountField;
         [SerializeField] private string roomPostName = " room";
         [SerializeField] private PlayerInListBehaviour playerInListPrefab;
-        [SerializeField] private PlayerInListBehaviour[] spawnedPlayerList = new PlayerInListBehaviour[0];
+        [SerializeField] private List<PlayerInListBehaviour> spawnedPlayerList = new List<PlayerInListBehaviour>();
         [SerializeField] private Transform contentHolder;
         [SerializeField] private Button startGameButton;
         [SerializeField] private Button quitLobbyButton;
@@ -94,6 +96,7 @@ namespace Lever.UI.Windows.Behaviours
             foreach (var player in playersArray)
             {
                 var newCell = Instantiate(playerInListPrefab, contentHolder);
+                spawnedPlayerList.Add(newCell);
                 newCell.LoadData(player);
             }
         }

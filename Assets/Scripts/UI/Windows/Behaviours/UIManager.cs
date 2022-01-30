@@ -85,7 +85,6 @@ public class UIManager : UIHelper, IUIManager
         
         lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
-        
         lobbyNetworking.JoinRoom(roomInfo.Name);
     }
     

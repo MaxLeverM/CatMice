@@ -19,6 +19,8 @@ namespace Lever.UI.Windows.Behaviours
 
         private string currentRoomName;
 
+        private int maxPlayerInThisLobbyValue;
+
         private IUIManager uiManager;
         
         [Inject]
@@ -28,11 +30,15 @@ namespace Lever.UI.Windows.Behaviours
             startGameButton.onClick.AddListener(StartGame);
         }
         
-        
+        /// <summary>
+        /// Show room on connect
+        /// </summary>
+        /// <param name="roomInfo"></param>
         public void Show(RoomInfo roomInfo)
         {
             currentRoomName = roomInfo.Name;
             titleText.text = roomInfo.Name + roomPostName;
+            maxPlayerInThisLobbyValue = roomInfo.MaxPlayers;
             
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
@@ -43,10 +49,15 @@ namespace Lever.UI.Windows.Behaviours
             uiManager.StartGame();
         }
 
-        public void Show(string roomName)
+        /// <summary>
+        /// Show lobby if createRoom
+        /// </summary>
+        /// <param name="roomName"></param>
+        public void Show(string roomName, int maxPlayerCount)
         {
             currentRoomName = roomName;
             titleText.text = roomName + roomPostName;
+            maxPlayerInThisLobbyValue = maxPlayerCount;
             
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
@@ -61,6 +72,8 @@ namespace Lever.UI.Windows.Behaviours
 
         public void UpdatePlayersList(Player[] playersArray)
         {
+            UpdatePlayerCount(playersArray.Length);
+            
             foreach (var spawnedCell in spawnedPlayerList)
                 Destroy(spawnedCell.gameObject);
             
@@ -69,6 +82,11 @@ namespace Lever.UI.Windows.Behaviours
                 var newCell = Instantiate(playerInListPrefab, contentHolder);
                 newCell.LoadData(player);
             }
+        }
+
+        private void UpdatePlayerCount(int currentCount)
+        {
+            currentPlayerCountField.text = $"{currentCount}/{maxPlayerInThisLobbyValue}";
         }
     }
 }

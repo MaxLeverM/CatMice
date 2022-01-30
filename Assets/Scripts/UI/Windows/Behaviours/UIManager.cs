@@ -52,7 +52,7 @@ public class UIManager : UIHelper, IUIManager
     public void CreateRoom(string name, int maxPlayers = 4)
     {
         lobbyNetworking.CreateRoom(name, (byte)maxPlayers);
-        OpenLobby(name);
+        CreateLobby(name, maxPlayers);
     }
 
     public void StartGame()
@@ -71,10 +71,10 @@ public class UIManager : UIHelper, IUIManager
         lobbyNetworking.JoinRoom(roomInfo.Name);
     }
     
-    public void OpenLobby(string newRoomName)
+    public void CreateLobby(string newRoomName, int maxPlayerCount)
     {
         OpenLoadingScreen(true);
-        lobbyBehaviour.Show(newRoomName);
+        lobbyBehaviour.Show(newRoomName, maxPlayerCount);
         
         lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;

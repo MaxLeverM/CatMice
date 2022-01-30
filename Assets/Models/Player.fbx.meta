@@ -24,6 +24,12 @@ ModelImporter:
   - first:
       74: -1500354584072067147
     second: Falling
+  - first:
+      74: -2171048134347961341
+    second: Falling.001
+  - first:
+      74: -2653189120771685943
+    second: Falling.002
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -54,7 +60,10 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'PlayerArmature|Shader NodetreeAction.002' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:RightUpLeg'
+      has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -184,11 +193,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Falling
-      takeName: Falling
+      name: Falling.002
+      takeName: Falling.002
       internalID: 0
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

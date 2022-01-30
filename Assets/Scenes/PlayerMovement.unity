@@ -986,6 +986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1019206845}
   - component: {fileID: 1019206844}
+  - component: {fileID: 1019206846}
   m_Layer: 0
   m_Name: ArtifactSpawner
   m_TagString: Untagged
@@ -1006,9 +1007,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   artifactPrefabs:
-  - {fileID: 8063537740646267118, guid: 51f6eb6c0b6a0bd4290d917c3c3a881c, type: 3}
-  - {fileID: 3726603217943317477, guid: 075afe1d92f3420469ba0de17ea09c09, type: 3}
-  - {fileID: 1404324758049520580, guid: 2adc63ca3d31e0740a3710e68de14b31, type: 3}
+  - {fileID: 1077060736073244176, guid: 27c7a5aee17f7b749888a330031bd60f, type: 3}
+  - {fileID: 22953971648757195, guid: 0c93d31a2b718f741ac7cbfd1e0ab562, type: 3}
+  - {fileID: 6873432351538535000, guid: 2fa9e1cbdd2677a459797e78a7653e27, type: 3}
   spawnPoints:
   - {fileID: 4941903}
   - {fileID: 2052529045}
@@ -1035,6 +1036,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019206846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019206843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c148e5bf01b4fc39fe95addbb6ccd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artifactPrefabs:
+  - {fileID: 1077060736073244176, guid: 27c7a5aee17f7b749888a330031bd60f, type: 3}
+  - {fileID: 22953971648757195, guid: 0c93d31a2b718f741ac7cbfd1e0ab562, type: 3}
+  - {fileID: 6873432351538535000, guid: 2fa9e1cbdd2677a459797e78a7653e27, type: 3}
+  spawnPoints:
+  - {fileID: 4941903}
+  - {fileID: 2052529045}
+  - {fileID: 2059253666}
+  - {fileID: 1164968589}
+  - {fileID: 1417990907}
+  teleportPoints: []
+  spawnFrequency: 10
 --- !u!137 &1078876391 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5068272595581537249, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
@@ -1973,14 +1998,6 @@ PrefabInstance:
     - target: {fileID: 8071315929895757215, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_Layer
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477567669440566980, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477567669440566980, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[0]
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8500895580989682967, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_Layer

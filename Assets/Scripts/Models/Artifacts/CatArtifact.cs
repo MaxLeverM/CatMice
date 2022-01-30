@@ -6,25 +6,23 @@ namespace Lever.Models
     public class CatArtifact : DualityArtifact
     {
         private Transform[] points;
-        private TeleportationPoints _teleportationPoints;
+        private Vector3 teleportPoint;
 
-        [Inject]
-        private void Construct(TeleportationPoints teleportationPoints)
+        public Vector3 TeleportPoint
         {
-            _teleportationPoints = teleportationPoints;
+            get => teleportPoint;
+            set => teleportPoint = value;
         }
         
         protected override void ApplyEffect(PlayerControl player)
         {
             if (IsEffectPositive)
             {
-                player.TransformToCat();
+                //player.TransformToCat();
                 return;
             }
-
-            points = _teleportationPoints.TeleportPoints;
-            var randomPointIndex = Random.Range(0, points.Length);
-            player.TeleportPlayer(points[randomPointIndex].position);
+            
+            player.TeleportPlayer(teleportPoint);
         }
     }
 }

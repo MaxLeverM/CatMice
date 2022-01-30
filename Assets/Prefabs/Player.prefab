@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d92d4f01d46a3d4699466928e27652d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 8249325233638036247}
   characterController: {fileID: 427048860652899797}
   playerAnimator: {fileID: 8324815671971770534}
   playerMesh: {fileID: 8477567669440566980}

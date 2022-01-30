@@ -22,6 +22,18 @@ namespace Lever.Networking
         private PlayerControlNetworking playerControlNetworking;
         private Player hunter;
 
+        public void OnEnable()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public void OnDisable()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         private void Start()
         {
             player = PhotonNetwork.Instantiate(catPrefabName, spawnPoints[0].position, spawnPoints[0].rotation);

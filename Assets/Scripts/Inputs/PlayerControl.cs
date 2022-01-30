@@ -64,6 +64,7 @@ public class PlayerControl : MonoBehaviour
     private bool isCrouching;
     private bool isDashing;
     private bool isChangingHeight;
+    private bool isTransforming;
     private float nextDashTime = 0;
     private Coroutine heightRoutine;
     private bool isHunter = false;
@@ -91,6 +92,8 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (isTransforming) return;
+        
         if (isHunter)
         {
             HunterControl();
@@ -219,11 +222,13 @@ public class PlayerControl : MonoBehaviour
 
     protected virtual IEnumerator SetPlayerHeight()
     {
+        if (!isGrounded) yield break;
+        
         characterController.height = isCrouching ? crouchingHeight : standingHeight;
         characterController.center = isCrouching ? crouchingCenter : standingCenter;
         var startCameraPosition = mainCameraTransform.position;
         isChangingHeight = true;
-        for (float i = 0; i < 1; i += Time.deltaTime * 3)
+        for (float i = 0; i < 1; i += Time.deltaTime * 3.5f)
         {
             var currentCameraPosition = mainCameraTransform.position;
             currentCameraPosition.y = Mathf.Lerp(startCameraPosition.y, characterController.bounds.max.y, i);
@@ -271,8 +276,12 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouseCoroutine()
     {
+        isTransforming = true;
+        playerAnimator.SetBool("IsTransforming", isTransforming);
+        ResetAnimationParameters();
         for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
+            SimulatePhysics();
             foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(0,100,EasingSmoothSquared(i)));
@@ -282,8 +291,9 @@ public class PlayerControl : MonoBehaviour
             
             yield return null;
         }
-
+        isTransforming = false;
         isHunter = false;
+        playerAnimator.SetBool("IsTransforming", isTransforming);
     }
 
     public virtual void TransformToCat()
@@ -293,8 +303,12 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator TransformToCatCoroutine()
     {
+        isTransforming = true;
+        playerAnimator.SetBool("IsTransforming", isTransforming);
+        ResetAnimationParameters();
         for (float i = 0; i < 1; i += Time.deltaTime / 2)
         {
+            SimulatePhysics();
             foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(100,0,EasingSmoothSquared(i)));
@@ -304,8 +318,16 @@ public class PlayerControl : MonoBehaviour
             
             yield return null;
         }
-
+        isTransforming = false;
         isHunter = true;
+        playerAnimator.SetBool("IsTransforming", isTransforming);
+    }
+
+    private void ResetAnimationParameters()
+    {
+        playerAnimator.SetFloat("Speed", 0);
+        playerAnimator.SetBool("Crouch", false);
+        playerAnimator.SetBool("Jump", false);
     }
 
     public virtual void TeleportPlayer(Vector3 newPosition)

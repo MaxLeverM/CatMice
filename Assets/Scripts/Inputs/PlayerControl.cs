@@ -5,10 +5,17 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;    
+    [SerializeField] private SkinnedMeshRenderer playerMesh;
+    [SerializeField] private SkinnedMeshRenderer firstEyeMesh;
+    [SerializeField] private SkinnedMeshRenderer secondEyeMesh;
+
+    [Header("Hunter/Victim fov parameters")] 
+    [SerializeField] private float victimFov = 70;
+    [SerializeField] private float hunterFov = 50;
 
     [Header("Default movement parameters")]
-    [SerializeField] private float runSpeed = 7;
+    [SerializeField] private float victimRunSpeed = 7;
+    [SerializeField] private float hunterRunSpeed = 10;
 
     [Header("Gravity parameters")]
     [SerializeField] private float gravity = -9.81f;
@@ -21,7 +28,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float defaultJumpHeight = 2;
 
     [Header("Crouch parameters")]
-    [SerializeField] private float crouchSpeed = 3;
+    [SerializeField] private float victimCrouchSpeed = 3;
+    [SerializeField] private float hunterCrouchSpeed = 4;
     [SerializeField] private float crouchingHeight = 1;
     [SerializeField] private Vector3 crouchingCenter = new Vector3(0, -0.5f, 0);
 
@@ -46,7 +54,8 @@ public class PlayerControl : MonoBehaviour
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
-    private Transform mainCamera;
+    private Camera mainCamera;
+    private Transform mainCameraTransform;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
@@ -54,47 +63,95 @@ public class PlayerControl : MonoBehaviour
     private bool isGrounded;
     private bool isCrouching;
     private bool isDashing;
+    private bool isChangingHeight;
     private float nextDashTime = 0;
+    private Coroutine heightRoutine;
+    private bool isHunter = false;
+    private SkinnedMeshRenderer[] meshRenderers;
+
+    public bool IsHunter
+    {
+        get => isHunter;
+        set => isHunter = value;
+    }
     
     protected virtual void Start()
     {
-        playerMaterial = meshRenderers[0].material;
+        meshRenderers = new[] { playerMesh, firstEyeMesh, secondEyeMesh };
+        playerMaterial = playerMesh.material;
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
         
-        playerSpeed = runSpeed;
         playerJump = defaultJumpHeight;
         canJump = true;
-        mainCamera = Camera.main.transform;
+        mainCamera = Camera.main;
+        mainCameraTransform = mainCamera.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
     }
 
     protected virtual void Update()
     {
+        if (isHunter)
+        {
+            HunterControl();
+            return;
+        }
+        
+        VictimControl();
+    }
+
+    private void HunterControl()
+    {
+        if(!isChangingHeight) 
+            StartCoroutine(SetPlayerHeight());
+
         playerAnimator.SetBool("Crouch", isCrouching);
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump && isGrounded)
             PlayerJump(playerJump);
-
         SimulatePhysics();
 
         if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
         {
-            Crouch();
+            Crouch(hunterCrouchSpeed);
             MovePlayer(playerSpeed * speedModificator);
             return;
         }
 
-        playerSpeed = runSpeed;
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime && !isCrouching && isGrounded)
-            StartCoroutine(Dash());
+        playerSpeed = hunterRunSpeed;
 
         if (Input.GetMouseButtonDown(0))
             Attack();
 
         isCrouching = false;
-        SetPlayerHeight();
+
+        MovePlayer(playerSpeed * speedModificator);
+    }
+
+    private void VictimControl()
+    {
+        if(!isChangingHeight) 
+            StartCoroutine(SetPlayerHeight());
+
+        playerAnimator.SetBool("Crouch", isCrouching);
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump && isGrounded)
+            PlayerJump(playerJump);
+        SimulatePhysics();
+
+        if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        {
+            Crouch(victimCrouchSpeed);
+            MovePlayer(playerSpeed * speedModificator);
+            return;
+        }
+
+        playerSpeed = victimRunSpeed;
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime && isGrounded)
+            StartCoroutine(Dash());
+
+        isCrouching = false;
 
         MovePlayer(playerSpeed * speedModificator);
     }
@@ -118,11 +175,10 @@ public class PlayerControl : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * forceDownVelocity * gravity);
     }
 
-    protected virtual void Crouch()
+    protected virtual void Crouch(float speed)
     {
         isCrouching = true;
-        playerSpeed = crouchSpeed;
-        SetPlayerHeight();
+        playerSpeed = speed;
     }
 
     protected virtual IEnumerator Dash()
@@ -142,7 +198,7 @@ public class PlayerControl : MonoBehaviour
     protected virtual void Attack()
     {
         playerAnimator.SetTrigger("Kick");
-        var ray = new Ray(mainCamera.position, mainCamera.forward);
+        var ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward);
         if(Physics.Raycast(ray, attackDistance, playerLayer))
         {
             //TODO: kill the mouse
@@ -161,13 +217,20 @@ public class PlayerControl : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    protected virtual void SetPlayerHeight()
+    protected virtual IEnumerator SetPlayerHeight()
     {
         characterController.height = isCrouching ? crouchingHeight : standingHeight;
         characterController.center = isCrouching ? crouchingCenter : standingCenter;
-        var cameraPosition = mainCamera.position;
-        cameraPosition.y = characterController.bounds.max.y;
-        mainCamera.position = cameraPosition;
+        var startCameraPosition = mainCameraTransform.position;
+        isChangingHeight = true;
+        for (float i = 0; i < 1; i += Time.deltaTime * 3)
+        {
+            var currentCameraPosition = mainCameraTransform.position;
+            currentCameraPosition.y = Mathf.Lerp(startCameraPosition.y, characterController.bounds.max.y, i);
+            mainCameraTransform.position = currentCameraPosition;
+            yield return null;
+        }
+        isChangingHeight = false;
     }
 
     public virtual void ApplyNewSpeed(bool isPositive)
@@ -206,7 +269,7 @@ public class PlayerControl : MonoBehaviour
         canJump = true;
     }
 
-    public virtual IEnumerator TransformToMouse()
+    public virtual IEnumerator TransformToMouseCoroutine()
     {
         for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
@@ -215,9 +278,12 @@ public class PlayerControl : MonoBehaviour
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(0,100,EasingSmoothSquared(i)));
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
+            mainCamera.fieldOfView = Mathf.Lerp(hunterFov, victimFov, EasingSmoothSquared(i));
             
             yield return null;
         }
+
+        isHunter = false;
     }
 
     public virtual void TransformToCat()
@@ -227,16 +293,19 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator TransformToCatCoroutine()
     {
-        for (float i = 0; i < 1; i += Time.deltaTime / 3)
+        for (float i = 0; i < 1; i += Time.deltaTime / 2)
         {
             foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(100,0,EasingSmoothSquared(i)));
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
+            mainCamera.fieldOfView = Mathf.Lerp(victimFov, hunterFov, EasingSmoothSquared(i));
             
             yield return null;
         }
+
+        isHunter = true;
     }
 
     public virtual void TeleportPlayer(Vector3 newPosition)

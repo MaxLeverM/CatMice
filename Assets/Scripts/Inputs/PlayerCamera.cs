@@ -5,7 +5,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Camera look parameters")]
-    [Range(0f, 100f)]
     [SerializeField] private float lookSensativity = 100;
     [Range(-90f, -60f)]
     [SerializeField] private float bottomCameraAngle = -60;

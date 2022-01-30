@@ -1305,11 +1305,6 @@ MonoBehaviour:
   - {fileID: 1405638616}
   - {fileID: 1655888277}
   - {fileID: 320718596}
---- !u!95 &1291108887 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8324815671971770534, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-  m_PrefabInstance: {fileID: 427048860628351113}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1308271786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,15 +1729,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427048860652899796, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.47352886
+      value: 0.3381983
       objectReference: {fileID: 0}
     - target: {fileID: 427048860652899796, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.49
+      value: 1.008
       objectReference: {fileID: 0}
     - target: {fileID: 427048860652899796, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.0074611
+      value: -1.2167416
       objectReference: {fileID: 0}
     - target: {fileID: 427048860652899796, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1776,10 +1771,6 @@ PrefabInstance:
       propertyPath: meshRenderer
       value: 
       objectReference: {fileID: 1395858522}
-    - target: {fileID: 427048860652899799, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 1291108887}
     - target: {fileID: 427048860652899799, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: playerMaterial
       value: 

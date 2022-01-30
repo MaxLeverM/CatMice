@@ -16,15 +16,10 @@ public class NetworkArtifactSpawner : MonoBehaviour
     private void Start()
     {
         photonView = PhotonView.Get(this);
-        photonView.RPC("StartSpawning", RpcTarget.MasterClient);
+        if(PhotonNetwork.IsMasterClient)
+            StartCoroutine(SpawnArtifacts());
     }
 
-    [PunRPC]
-    private void StartSpawning()
-    {
-        StartCoroutine(SpawnArtifacts());
-    }
-    
     private IEnumerator SpawnArtifacts()
     {
         while (true)

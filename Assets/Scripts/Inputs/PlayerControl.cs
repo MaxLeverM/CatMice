@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -76,19 +77,22 @@ public class PlayerControl : MonoBehaviour
         get => isHunter;
         set => isHunter = value;
     }
-    
-    protected virtual void Start()
+
+    private void Awake()
     {
         meshRenderers = new[] { playerMesh, firstEyeMesh, secondEyeMesh };
         playerMaterial = playerMesh.material;
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
-        
         playerJump = defaultJumpHeight;
         canJump = true;
         mainCamera = Camera.main;
         mainCameraTransform = mainCamera.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
+    }
+
+    protected virtual void Start()
+    {
     }
 
     protected virtual void Update()
@@ -321,7 +325,6 @@ public class PlayerControl : MonoBehaviour
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
             mainCamera.fieldOfView = Mathf.Lerp(victimFov, hunterFov, EasingSmoothSquared(i));
-            
             yield return null;
         }
         isTransforming = false;

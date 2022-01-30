@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5234533388263809254}
   - component: {fileID: 7109708113699860154}
   - component: {fileID: 1882898019466002327}
+  - component: {fileID: -7057438446252175921}
   m_Layer: 0
   m_Name: JumpArtifact
   m_TagString: Untagged
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 8
+  photonView: {fileID: -7057438446252175921}
 --- !u!135 &5234533388263809254
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -162,6 +164,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-7057438446252175921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22953971648757195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1882898019466002327}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &905475666536953982
 GameObject:
   m_ObjectHideFlags: 0

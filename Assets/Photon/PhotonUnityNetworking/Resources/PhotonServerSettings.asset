@@ -49,6 +49,7 @@ MonoBehaviour:
   - TransformToMouse
   - TransformToMouseNetwork
   - KillVictimEvent
+  - DestroyMyself
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

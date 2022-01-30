@@ -33,12 +33,7 @@ public class UIManager : UIHelper, IUIManager
     {
         this.lobbyNetworking = lobbyNetworking;
     }
-    
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-    
+
     public void OpenLogin()
     {
         loginBehaviour.Show();

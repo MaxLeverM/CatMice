@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 427048860652899794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.47352886, y: 1.49, z: -1.0074611}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 427048861264531368}
   - {fileID: 9048145565797360711}
@@ -65,7 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d92d4f01d46a3d4699466928e27652d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 8249325233638036247}
   characterController: {fileID: 427048860652899797}
   playerAnimator: {fileID: 8324815671971770534}
   playerMesh: {fileID: 8477567669440566980}
@@ -98,6 +97,7 @@ MonoBehaviour:
   speedUpMultiplier: 2
   slowDownMultiplier: 0.5
   bigJumpHeight: 3
+  isHunter: 0
 --- !u!1 &427048861264531369
 GameObject:
   m_ObjectHideFlags: 0

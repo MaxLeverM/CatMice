@@ -14,7 +14,7 @@ namespace Lever.UI.Windows.Behaviours
         [SerializeField] private TextMeshProUGUI roomTitle;
         [SerializeField] private string titleEndString = " select room";
         [SerializeField] private int maxPLayerCount = 8;
-        private int currentPlayerCount = 2;
+        private int currentPlayerCount = 4;
 
 
         [Header("Rooms list")]
@@ -91,6 +91,7 @@ namespace Lever.UI.Windows.Behaviours
             
             foreach (var roomInfo in loadedRoomsNames)
             {
+                if (roomInfo.MaxPlayers == 0) continue;
                 var newRoomButton = Instantiate(roomButtonPrefab, listOfRoomContent);
                 newRoomButton.LoadData(roomInfo, roomInfo.MaxPlayers, this);
             }

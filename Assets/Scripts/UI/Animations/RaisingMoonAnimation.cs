@@ -1,8 +1,10 @@
 ﻿using System;
 using DG.Tweening;
+using Lever.UI.Windows.Interfaces;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Lever.UI.Animations
 {
@@ -20,12 +22,19 @@ namespace Lever.UI.Animations
         [SerializeField] private Vector3 targetScale = new Vector3(5f, 5f, 5f);
         [SerializeField] private float doScaleSpeed = 2f;
         
+        private IUIManager uiManager;
         
+        [Inject]
+        private void Construct(UIManager uiManager)
+        {
+            this.uiManager = uiManager;
+        }
 
 
         [ContextMenu("Play")]
         public void PlayRaisingMoon()
         {
+            uiManager.OpenLoadingScreen(true);
             MoveMoonToStartPosition();
             var sq = DOTween.Sequence();
             sq.Append(thisRectTransform.DOAnchorPos(targetPosition, doMoveSpeed).OnComplete(SmoothShadeBackGround));
@@ -43,7 +52,8 @@ namespace Lever.UI.Animations
             MoveMoonToStartPosition();
             ToggleVisibleCanvasGroup(backgroundCanvasGroup, false);
             
-            SmoothToggleVisibleCanvasGroup(shadowCanvasGroup, doScaleSpeed, false);
+            uiManager.OpenLoadingScreen(false);
+            SmoothToggleVisibleCanvasGroup(shadowCanvasGroup, 1f, false);
         }
 
         private void MoveMoonToStartPosition()

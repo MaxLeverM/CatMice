@@ -16,6 +16,7 @@ namespace Lever.UI.Windows.Behaviours
         [SerializeField] private PlayerInListBehaviour[] spawnedPlayerList = new PlayerInListBehaviour[0];
         [SerializeField] private Transform contentHolder;
         [SerializeField] private Button startGameButton;
+        [SerializeField] private Button quitLobbyButton;
 
         private string currentRoomName;
 
@@ -27,7 +28,6 @@ namespace Lever.UI.Windows.Behaviours
         private void Construct(UIManager uiManager)
         {
             this.uiManager = uiManager;
-            startGameButton.onClick.AddListener(StartGame);
         }
         
         /// <summary>
@@ -42,11 +42,19 @@ namespace Lever.UI.Windows.Behaviours
             
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
+            
+            startGameButton.onClick.AddListener(StartGame);
+            quitLobbyButton.onClick.AddListener(QuitLobby);
         }
 
         private void StartGame()
         {
             uiManager.StartGame();
+        }
+
+        private void QuitLobby()
+        {
+            uiManager.QuitLobby();
         }
 
         /// <summary>
@@ -61,6 +69,9 @@ namespace Lever.UI.Windows.Behaviours
             
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
+            
+            startGameButton.onClick.AddListener(StartGame);
+            quitLobbyButton.onClick.AddListener(QuitLobby);
         }
         
 
@@ -68,6 +79,9 @@ namespace Lever.UI.Windows.Behaviours
         {
             Animations.MoveToEndPosition(() => ToggleVisibleCanvasGroup(CanvasGroup, false));
             uiManager.UnsubscribeOnCloseLobby(); 
+            
+            startGameButton.onClick.RemoveListener(StartGame);
+            quitLobbyButton.onClick.RemoveListener(QuitLobby);
         }
 
         public void UpdatePlayersList(Player[] playersArray)

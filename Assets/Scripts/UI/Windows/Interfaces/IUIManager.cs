@@ -14,6 +14,8 @@ namespace Lever.UI.Windows.Interfaces
 
         public void OpenLobby(RoomInfo roomInfo);
 
+        public void QuitLobby();
+
         public void StartGame();
 
         public void UnsubscribeOnCloseLobby();

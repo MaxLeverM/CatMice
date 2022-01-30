@@ -98,6 +98,9 @@ namespace Lever.Networking
 
         private void RespawnPlayer(Transform player)
         {
+     /*       int positionIndex = Random.Range(0, spawnPoints.Count);
+            player.position = spawnPoints[i].position;
+            player.rotation = spawnPoints[i].rotation;*/
             for (int i = 0; i < TryToSpawn; i++)
             {
                 int positionIndex = Random.Range(0, spawnPoints.Count);
@@ -113,8 +116,8 @@ namespace Lever.Networking
                 if (hasEnemy && i != TryToSpawn - 1)
                     continue;
 
-                player.position = spawnPoints[i].position;
-                player.rotation = spawnPoints[i].rotation;
+                player.position = spawnPoints[positionIndex].position;
+                player.rotation = spawnPoints[positionIndex].rotation;
                 break;
             }
         }

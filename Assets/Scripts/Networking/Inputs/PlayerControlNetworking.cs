@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 class PlayerControlNetworking : PlayerControl
@@ -11,11 +12,13 @@ class PlayerControlNetworking : PlayerControl
     [SerializeField] private int timeToRespawn = 5;
     
     [SerializeField] private bool isDead = false;
-    
-    public event Action OnKillVictim;
+
+    public PhotonView GetPhotonView => photonView;
+    public event Action<string> OnKillVictim;
     public event Action OnRespawn;
     public event Action<int> OnTimeToRespawnChanged;
     public event Action OnDead;
+    public event Action OnTransformToCat;
 
     protected override void Start()
     {
@@ -53,14 +56,42 @@ class PlayerControlNetworking : PlayerControl
             var otherPlayer = hit.collider.GetComponent<PlayerControlNetworking>();
             if (!otherPlayer.IsHunter)
             {
-                otherPlayer.Dead();
-                OnKillVictim?.Invoke();
+                if (!otherPlayer.isDead)
+                {
+                    otherPlayer.Dead();
+                    photonView.RPC("KillVictimEvent", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
+                }
             }
         }
+    }
+
+    public void TransformToMouse()
+    {
+        photonView.RPC("TransformToMouseNetwork", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void KillVictimEvent(string nickName)
+    {
+        OnKillVictim?.Invoke(nickName);
+    }
+
+    [PunRPC]
+    private void TransformToMouseNetwork()
+    {
+        StartCoroutine(TransformToMouseCoroutine());
+    }
+
+    public void TransformToCat(bool withCallback)
+    {
+        if(withCallback)
+            OnTransformToCat?.Invoke();
+        photonView.RPC("TransformToCatNetwork", RpcTarget.All);
     }
     
     public override void TransformToCat()
     {
+        OnTransformToCat?.Invoke();
         photonView.RPC("TransformToCatNetwork", RpcTarget.All);
     }
 

@@ -63,7 +63,8 @@ namespace Lever.Networking
 
         public void StartGame()
         {
-            PhotonNetwork.LoadLevel(SceneNames.Multiplayer);
+            if(IsMasterClient)
+                PhotonNetwork.LoadLevel(SceneNames.Multiplayer);
         }
 
         private void JoinLobby()

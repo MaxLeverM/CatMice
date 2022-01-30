@@ -75,7 +75,7 @@ public class PlayerControl : MonoBehaviour
         get => isHunter;
         set => isHunter = value;
     }
-
+    
     protected virtual void Start()
     {
         meshRenderers = new[] { playerMesh, firstEyeMesh, secondEyeMesh };

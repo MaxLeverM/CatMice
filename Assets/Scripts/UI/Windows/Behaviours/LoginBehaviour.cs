@@ -29,7 +29,7 @@ public class LoginBehaviour : PopUpWindow
         public void Show(string previousName = "")
         {
             selectNameButton.interactable = false;
-            ToggleVisibleCanvasGroup(CanvasGroup, true);
+            SmoothToggleVisibleCanvasGroup(CanvasGroup,1f , true);
             
             nicknameInputField.text = previousName;
             

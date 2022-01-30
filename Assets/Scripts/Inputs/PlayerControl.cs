@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
-    [SerializeField] private Animator playerAnimator;
+    [SerializeField] protected Animator playerAnimator;
     [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private SkinnedMeshRenderer firstEyeMesh;
     [SerializeField] private SkinnedMeshRenderer secondEyeMesh;
@@ -40,7 +39,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float dashCooldownTime = 3;
 
     [Header("Attack parameters")]
-    [SerializeField] private float attackDistance = 3;
+    [SerializeField]
+    protected float attackDistance = 3;
     [SerializeField] private LayerMask playerLayer;
 
     [Header("Effects parameters")] 
@@ -48,6 +48,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float speedUpMultiplier = 2;
     [SerializeField] private float slowDownMultiplier = 0.5f;
     [SerializeField] private float bigJumpHeight = 3;
+    [SerializeField] private bool isHunter = false;
 
     private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
 
@@ -55,7 +56,8 @@ public class PlayerControl : MonoBehaviour
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
-    private Transform mainCameraTransform;
+    private Camera mainCamera;
+    protected Transform mainCameraTransform;
     private Vector3 velocity;
     private float standingHeight;
     private Vector3 standingCenter;
@@ -67,7 +69,6 @@ public class PlayerControl : MonoBehaviour
     private bool isTransforming;
     private float nextDashTime = 0;
     private Coroutine heightRoutine;
-    private bool isHunter = false;
     private SkinnedMeshRenderer[] meshRenderers;
 
     public bool IsHunter
@@ -84,6 +85,7 @@ public class PlayerControl : MonoBehaviour
         
         playerJump = defaultJumpHeight;
         canJump = true;
+        mainCamera = Camera.main;
         mainCameraTransform = mainCamera.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
@@ -207,6 +209,11 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    public virtual void Dead()
+    {
+        
+    }
+
     protected virtual void SimulatePhysics()
     {
         isGrounded = Physics.CheckSphere(groundCheckComponent.position, groundCheckRadius, groundLayer);
@@ -278,7 +285,7 @@ public class PlayerControl : MonoBehaviour
         isTransforming = true;
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
-        for (float i = 0; i < 1; i += Time.deltaTime / 2)
+        for (float i = 0; i < 1; i += Time.deltaTime / 3)
         {
             SimulatePhysics();
             foreach (var meshRenderer in meshRenderers)

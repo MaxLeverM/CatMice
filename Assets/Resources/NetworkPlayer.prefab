@@ -197,8 +197,11 @@ MonoBehaviour:
   speedUpMultiplier: 2
   slowDownMultiplier: 0.5
   bigJumpHeight: 3
+  isHunter: 0
   playerModel: {fileID: 5211240325229477027}
   photonView: {fileID: 7385437953300491775}
+  timeToRespawn: 5
+  isDead: 0
 --- !u!114 &7385437953300491775
 MonoBehaviour:
   m_ObjectHideFlags: 0

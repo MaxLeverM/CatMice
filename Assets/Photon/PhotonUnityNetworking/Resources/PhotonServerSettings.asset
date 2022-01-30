@@ -41,7 +41,9 @@ MonoBehaviour:
   - RespawnSpaceship
   - OnLevelLoaded
   - SpawnPlayer
-  - StartSpawning
+  - DeadNetwork
+  - TransformToCat
+  - TransformToCatNetwork
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

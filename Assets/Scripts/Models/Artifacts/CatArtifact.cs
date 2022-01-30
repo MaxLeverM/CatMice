@@ -18,7 +18,7 @@ namespace Lever.Models
         {
             if (IsEffectPositive)
             {
-                player.TransformToCat();
+                //player.TransformToCat();
                 return;
             }
             

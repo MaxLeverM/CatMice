@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1839202094133239565, guid: c5040965cfbccbf4cbce4f14b99fe20b, type: 3}
       propertyPath: m_Name
-      value: NetworkArtifactSpawner
+      value: NetworkArtifactSpawner Variant
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1839202094133239562, guid: c5040965cfbccbf4cbce4f14b99fe20b, type: 3}
@@ -119,7 +119,7 @@ MonoBehaviour:
   artifactPrefabs:
   - {fileID: 1077060736073244176, guid: 27c7a5aee17f7b749888a330031bd60f, type: 3}
   - {fileID: 22953971648757195, guid: 0c93d31a2b718f741ac7cbfd1e0ab562, type: 3}
-  - {fileID: 6873432351538535000, guid: 2fa9e1cbdd2677a459797e78a7653e27, type: 3}
+  - {fileID: 4244957111648825621, guid: f2f3ead2d70876e48a447fe534bb82d7, type: 3}
   spawnPoints:
   - {fileID: 359433368657748563}
   - {fileID: 359433370101879177}
@@ -131,3 +131,25 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   spawnFrequency: 10
+--- !u!114 &1878142531336828304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359433369134618279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

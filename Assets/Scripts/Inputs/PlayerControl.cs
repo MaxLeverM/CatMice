@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private SkinnedMeshRenderer playerMesh;
@@ -54,7 +55,6 @@ public class PlayerControl : MonoBehaviour
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
-    private Camera mainCamera;
     private Transform mainCameraTransform;
     private Vector3 velocity;
     private float standingHeight;
@@ -84,7 +84,6 @@ public class PlayerControl : MonoBehaviour
         
         playerJump = defaultJumpHeight;
         canJump = true;
-        mainCamera = Camera.main;
         mainCameraTransform = mainCamera.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;

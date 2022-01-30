@@ -10,12 +10,21 @@ public class NetworkArtifactSpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private float spawnFrequency = 10;
+
+    private PhotonView photonView;
     
     private void Start()
     {
-        StartCoroutine(SpawnArtifacts());
+        photonView = PhotonView.Get(this);
+        photonView.RPC("StartSpawning", RpcTarget.MasterClient);
     }
 
+    [PunRPC]
+    private void StartSpawning()
+    {
+        StartCoroutine(SpawnArtifacts());
+    }
+    
     private IEnumerator SpawnArtifacts()
     {
         while (true)

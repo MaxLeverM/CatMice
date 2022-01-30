@@ -92,6 +92,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 576992534595889924, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1442600108706357202 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8249325233638036247, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5211240325229477027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3327126339616960614, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
@@ -159,13 +164,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144744a698f244e6abc47751739e923e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1442600108706357202}
   characterController: {fileID: 7175208498714312976}
   playerAnimator: {fileID: 1583568388728552547}
-  meshRenderers:
-  - {fileID: 1429899827115710977}
-  - {fileID: 7289199291494539255}
-  - {fileID: 2317180772206020388}
-  runSpeed: 7
+  playerMesh: {fileID: 1429899827115710977}
+  firstEyeMesh: {fileID: 7289199291494539255}
+  secondEyeMesh: {fileID: 2317180772206020388}
+  victimFov: 70
+  hunterFov: 50
+  victimRunSpeed: 7
+  hunterRunSpeed: 10
   gravity: -9.81
   forceDownVelocity: -2
   groundCheckComponent: {fileID: 7175208499308184429}
@@ -174,7 +182,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   defaultJumpHeight: 2
-  crouchSpeed: 3
+  victimCrouchSpeed: 3
+  hunterCrouchSpeed: 4
   crouchingHeight: 1
   crouchingCenter: {x: 0, y: -0.5, z: 0}
   dashSpeed: 20

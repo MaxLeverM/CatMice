@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2296694752639323600
 Transform:
@@ -40,6 +40,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2296694752639323600}
     m_Modifications:
+    - target: {fileID: 514316307499196360, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 617862384306823636, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1520704322898782288, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -88,6 +96,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArcIntunnel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2361850369749628713, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532676689386945632, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605099635950131962, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651681244282185981, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719458666038021735, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317221581273779029, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
 --- !u!4 &5254323346728070843 stripped
@@ -102,6 +134,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2296694752639323600}
     m_Modifications:
+    - target: {fileID: 514316307499196360, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 617862384306823636, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1520704322898782288, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -150,6 +190,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArcIntunnel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2361850369749628713, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532676689386945632, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605099635950131962, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651681244282185981, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719458666038021735, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317221581273779029, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
 --- !u!4 &5254323347203994716 stripped
@@ -164,6 +228,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2296694752639323600}
     m_Modifications:
+    - target: {fileID: 514316307499196360, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 617862384306823636, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1520704322898782288, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -211,6 +283,30 @@ PrefabInstance:
     - target: {fileID: 2361850369749628713, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
       propertyPath: m_Name
       value: ArcIntunnel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361850369749628713, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532676689386945632, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605099635950131962, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651681244282185981, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719458666038021735, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317221581273779029, guid: 857445d8c61df7c4495ea45147c89049, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 857445d8c61df7c4495ea45147c89049, type: 3}

@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: playerAnimator
       value: 
       objectReference: {fileID: 1583568388728552547}
+    - target: {fileID: 8249325233638036247, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 191
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2826299196220294704, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
     - {fileID: 427048860652899799, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}

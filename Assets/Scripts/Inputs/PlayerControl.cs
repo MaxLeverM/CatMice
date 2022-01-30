@@ -55,7 +55,7 @@ public class PlayerControl : MonoBehaviour
     private bool isCrouching;
     private bool isDashing;
     private float nextDashTime = 0;
-
+    
     protected virtual void Start()
     {
         playerMaterial = meshRenderers[0].material;

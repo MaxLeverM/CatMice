@@ -17,6 +17,12 @@ class PlayerControlNetworking : PlayerControl
         base.Start();
     }
 
+    protected override void Update()
+    {
+        if(photonView.IsMine)
+            base.Update();
+    }
+
     private void SetLayerRecursively(GameObject gameObject, LayerMask layerMask)
     {
         gameObject.layer = layerMask;

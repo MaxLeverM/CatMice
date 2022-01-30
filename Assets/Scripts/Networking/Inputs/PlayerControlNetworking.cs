@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 class PlayerControlNetworking : PlayerControl
@@ -13,7 +14,7 @@ class PlayerControlNetworking : PlayerControl
     [SerializeField] private bool isDead = false;
 
     public PhotonView GetPhotonView => photonView;
-    public event Action OnKillVictim;
+    public event Action<string> OnKillVictim;
     public event Action OnRespawn;
     public event Action<int> OnTimeToRespawnChanged;
     public event Action OnDead;
@@ -55,8 +56,11 @@ class PlayerControlNetworking : PlayerControl
             var otherPlayer = hit.collider.GetComponent<PlayerControlNetworking>();
             if (!otherPlayer.IsHunter)
             {
-                otherPlayer.Dead();
-                OnKillVictim?.Invoke();
+                if (!otherPlayer.isDead)
+                {
+                    otherPlayer.Dead();
+                    photonView.RPC("KillVictimEvent", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
+                }
             }
         }
     }
@@ -64,6 +68,12 @@ class PlayerControlNetworking : PlayerControl
     public void TransformToMouse()
     {
         photonView.RPC("TransformToMouseNetwork", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void KillVictimEvent(string nickName)
+    {
+        OnKillVictim?.Invoke(nickName);
     }
 
     [PunRPC]

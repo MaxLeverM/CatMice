@@ -92,6 +92,7 @@ namespace Lever.UI.Windows.Behaviours
             
             foreach (var spawnedCell in spawnedPlayerList)
                 Destroy(spawnedCell.gameObject);
+            spawnedPlayerList = new List<PlayerInListBehaviour>();
             
             foreach (var player in playersArray)
             {

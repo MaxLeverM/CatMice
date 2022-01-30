@@ -10,7 +10,10 @@ namespace Lever.Networking
     {
         [SerializeField] private List<PlayerControlNetworking> playerControlNetworkings;
         private Dictionary<string, int> leaderBoard;
+
+        public Dictionary<string, int> LeaderBoard => leaderBoard;
         public event Action OnLeaderBoardUpdated;
+        public event Action OnLeaderBoardCreated;
 
         private IEnumerator Start()
         {
@@ -22,6 +25,7 @@ namespace Lever.Networking
                 leaderBoard.Add(playerControlNetworking.GetPhotonView.Owner.NickName, 0);
                 playerControlNetworking.OnKillVictim += KillVictim;
             }
+            OnLeaderBoardCreated?.Invoke();
         }
 
         private void KillVictim(string nickName)

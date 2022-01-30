@@ -6,11 +6,12 @@ using UnityEngine;
 
 class PlayerControlNetworking : PlayerControl
 {
-    [Header("Networking")]
-    [SerializeField] private GameObject playerModel;
+    [Header("Networking")] [SerializeField]
+    private GameObject playerModel;
+
     [SerializeField] private PhotonView photonView;
     [SerializeField] private int timeToRespawn = 5;
-    
+
     [SerializeField] private bool isDead = false;
 
     public PhotonView GetPhotonView => photonView;
@@ -32,7 +33,7 @@ class PlayerControlNetworking : PlayerControl
 
     protected override void Update()
     {
-        if(photonView.IsMine && !isDead)
+        if (photonView.IsMine && !isDead)
             base.Update();
     }
 
@@ -51,16 +52,13 @@ class PlayerControlNetworking : PlayerControl
         playerAnimator.SetTrigger("Kick");
         var ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit, attackDistance, LayerMask.NameToLayer("OtherPlayer")))
+        if (Physics.SphereCast(ray, 0.5f, out hit, attackDistance, LayerMask.NameToLayer("OtherPlayer")))
         {
             var otherPlayer = hit.collider.GetComponent<PlayerControlNetworking>();
-            if (!otherPlayer.IsHunter)
+            if (!otherPlayer.IsHunter && !otherPlayer.isDead)
             {
-                if (!otherPlayer.isDead)
-                {
-                    otherPlayer.Dead();
-                    photonView.RPC("KillVictimEvent", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
-                }
+                otherPlayer.Dead();
+                photonView.RPC("KillVictimEvent", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
             }
         }
     }
@@ -84,11 +82,11 @@ class PlayerControlNetworking : PlayerControl
 
     public void TransformToCat(bool withCallback)
     {
-        if(withCallback)
+        if (withCallback)
             OnTransformToCat?.Invoke();
         photonView.RPC("TransformToCatNetwork", RpcTarget.All);
     }
-    
+
     public override void TransformToCat()
     {
         OnTransformToCat?.Invoke();
@@ -109,12 +107,10 @@ class PlayerControlNetworking : PlayerControl
     [PunRPC]
     private void DeadNetwork()
     {
-        if (photonView.IsMine)
-        {
-            isDead = true;
-            OnDead?.Invoke();
-            StartCoroutine(RespawnTimer());
-        }
+        isDead = true;
+        OnDead?.Invoke();
+        playerAnimator.SetBool("Death", isDead);
+        StartCoroutine(RespawnTimer());
     }
 
     private IEnumerator RespawnTimer()
@@ -125,6 +121,7 @@ class PlayerControlNetworking : PlayerControl
             yield return new WaitForSeconds(1f);
         }
         isDead = false;
+        playerAnimator.SetBool("Death", isDead);
         OnRespawn?.Invoke();
     }
 }

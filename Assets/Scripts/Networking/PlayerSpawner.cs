@@ -113,8 +113,8 @@ namespace Lever.Networking
                 if (hasEnemy && i != TryToSpawn - 1)
                     continue;
 
-                player.position = spawnPoints[i].position;
-                player.rotation = spawnPoints[i].rotation;
+                player.position = spawnPoints[positionIndex].position;
+                player.rotation = spawnPoints[positionIndex].rotation;
                 break;
             }
         }

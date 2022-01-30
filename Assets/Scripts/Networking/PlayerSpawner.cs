@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -19,11 +20,13 @@ namespace Lever.Networking
         private const int TryToSpawn = 10;
         private GameObject player;
         private PlayerControlNetworking playerControlNetworking;
+        private Player hunter;
 
         private void Start()
         {
             player = PhotonNetwork.Instantiate(catPrefabName, spawnPoints[0].position, spawnPoints[0].rotation);
             playerControlNetworking = player.GetComponent<PlayerControlNetworking>();
+            playerControlNetworking.OnTransformToCat += ChangeHunter;
             playerControlNetworking.OnRespawn += ()=> RespawnPlayer(player.transform);
             
             photonView = PhotonView.Get(this);
@@ -58,13 +61,32 @@ namespace Lever.Networking
             }
 
             int whoIsCat = Random.Range(0, playerList.Length);
-            photonView.RPC("TransformToCat", playerList[whoIsCat]);
+            hunter = playerList[whoIsCat];
+            photonView.RPC("TransformToCat", hunter , false);
+        }
+
+        public void ChangeHunter()
+        {
+            photonView.RPC("ChangeHunterNetwork", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.NickName);
         }
 
         [PunRPC]
-        private void TransformToCat()
+        private void ChangeHunterNetwork(string nickName)
         {
-            playerControlNetworking.TransformToCat();
+            photonView.RPC("TransformToMouse", hunter);
+            hunter = PhotonNetwork.PlayerList.FirstOrDefault(x=>x.NickName == nickName);
+        }
+
+        [PunRPC]
+        private void TransformToCat(bool withCallback)
+        {
+            playerControlNetworking.TransformToCat(withCallback);
+        }
+        
+        [PunRPC]
+        private void TransformToMouse()
+        {
+            playerControlNetworking.TransformToMouse();
         }
 
         [PunRPC]

@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/NetworkingLobby.unity
     guid: 561f37f8a900db14c99254b2e1d17bed
   - enabled: 1
-    path: Assets/Scenes/NetworkingGame.unity
-    guid: 729a7b3a398adb64c9cf5ddc49ce9eb6
-  - enabled: 1
     path: Assets/Scenes/Models 5.1.unity
     guid: 1efc54c4f272b7547a5bc481b234ffdc
   m_configObjects: {}

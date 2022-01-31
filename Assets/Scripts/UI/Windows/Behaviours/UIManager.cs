@@ -32,6 +32,8 @@ public class UIManager : UIHelper, IUIManager
     private void Construct(ILobbyNetworking lobbyNetworking)
     {
         this.lobbyNetworking = lobbyNetworking;
+
+        lobbyNetworking.OnJoinedToRoom += UpdatePlayerList;
     }
 
     public void OpenLogin()
@@ -57,7 +59,6 @@ public class UIManager : UIHelper, IUIManager
 
     public void CreateRoom(string name, int maxPlayers = 4)
     {
-
         lobbyNetworking.CreateRoom(name, (byte)maxPlayers);
         CreateLobby(name, maxPlayers);
     }
@@ -74,6 +75,9 @@ public class UIManager : UIHelper, IUIManager
 
     public void StartGame()
     {
+        if(!lobbyNetworking.IsMasterClient)
+            return;
+        
         lobbyNetworking.StartGame();
         raisingMoonAnimation.PlayRaisingMoon();
         lobbyBehaviour.Hide();
@@ -82,8 +86,7 @@ public class UIManager : UIHelper, IUIManager
     public void OpenLobby(RoomInfo roomInfo)
     {
         lobbyBehaviour.Show(roomInfo);
-        
-        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
+
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
         lobbyNetworking.JoinRoom(roomInfo.Name);
     }
@@ -92,8 +95,12 @@ public class UIManager : UIHelper, IUIManager
     {
         lobbyBehaviour.Show(newRoomName, maxPlayerCount);
         
-        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
+    }
+
+    private void UpdatePlayerList()
+    {
+        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
     }
 
     public void UnsubscribeOnCloseLobby()

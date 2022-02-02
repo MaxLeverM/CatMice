@@ -1016,6 +1016,10 @@ MonoBehaviour:
   - {fileID: 2059253666}
   - {fileID: 1164968589}
   - {fileID: 1417990907}
+  teleportPoints:
+  - {fileID: 1405638616}
+  - {fileID: 1655888277}
+  - {fileID: 320718596}
   spawnFrequency: 10
 --- !u!4 &1019206845
 Transform:

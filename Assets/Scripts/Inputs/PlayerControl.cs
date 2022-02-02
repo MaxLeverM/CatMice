@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Lever.Models.Enums;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -43,6 +44,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     protected float attackDistance = 3;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float attackCooldown = 2;
 
     [Header("Effects parameters")] 
     [SerializeField] private float effectDuration = 5;
@@ -69,8 +71,12 @@ public class PlayerControl : MonoBehaviour
     private bool isChangingHeight;
     private bool isTransforming;
     private float nextDashTime = 0;
+    private float nextAttackTime = 0;
     private Coroutine heightRoutine;
     private SkinnedMeshRenderer[] meshRenderers;
+
+    public event Action<EffectType> OnApplyEffect;
+    public event Action<EffectType> OnEndedEffect;
 
     public bool IsHunter
     {
@@ -128,8 +134,11 @@ public class PlayerControl : MonoBehaviour
 
         playerSpeed = hunterRunSpeed;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.time > nextAttackTime)
+        {
+            nextAttackTime = Time.time + attackCooldown;
             Attack();
+        }
 
         isCrouching = false;
 
@@ -255,9 +264,21 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator NewSpeedCoroutine(bool isPositive)
     {
-        speedModificator = isPositive ? speedUpMultiplier : slowDownMultiplier;
+        EffectType currentEffect;
+        if (isPositive)
+        {
+            currentEffect = EffectType.SpeedUp;
+            speedModificator = speedUpMultiplier;
+        }
+        else
+        {
+            currentEffect = EffectType.SlowDown;
+            speedModificator = slowDownMultiplier;
+        }
+        OnApplyEffect?.Invoke(currentEffect);
         yield return new WaitForSeconds(effectDuration);
         speedModificator = 1;
+        OnEndedEffect?.Invoke(currentEffect);
     }
 
     public virtual void ApplyBigJump()
@@ -267,9 +288,11 @@ public class PlayerControl : MonoBehaviour
     
     public virtual IEnumerator BigJumpCoroutine()
     {
+        OnApplyEffect?.Invoke(EffectType.HighJump);
         playerJump = bigJumpHeight;
         yield return new WaitForSeconds(effectDuration);
         playerJump = defaultJumpHeight;
+        OnEndedEffect?.Invoke(EffectType.HighJump);
     }
 
     public virtual void DisableJump()
@@ -279,9 +302,11 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator DisableJumpCoroutine()
     {
+        OnApplyEffect?.Invoke(EffectType.DisabledJump);
         canJump = false;
         yield return new WaitForSeconds(effectDuration);
         canJump = true;
+        OnEndedEffect?.Invoke(EffectType.DisabledJump);
     }
 
     public virtual IEnumerator TransformToMouseCoroutine()

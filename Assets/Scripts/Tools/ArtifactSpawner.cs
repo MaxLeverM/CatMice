@@ -1,4 +1,5 @@
 using System.Collections;
+using Lever.Models;
 using Photon.Pun;
 using UnityEngine;
 using Zenject;
@@ -8,6 +9,7 @@ public class ArtifactSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] artifactPrefabs;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private float spawnFrequency = 10;
 
     private DiContainer diContainer;
@@ -30,8 +32,13 @@ public class ArtifactSpawner : MonoBehaviour
             foreach (var point in spawnPoints)
             {
                 var artifactIndex = Random.Range(0, artifactPrefabs.Length);
-                diContainer.InstantiatePrefab(artifactPrefabs[artifactIndex], point.position, Quaternion.identity,
-                    null);
+                var artifact = Instantiate(artifactPrefabs[artifactIndex], point.position, Quaternion.identity);
+                CatArtifact catArtifact;
+                if (artifact.TryGetComponent(out catArtifact))
+                {
+                    var teleportIndex = Random.Range(0, teleportPoints.Length);
+                    catArtifact.TeleportPoint = teleportPoints[teleportIndex].position;
+                }
             }
 
             yield return new WaitForSeconds(spawnFrequency);

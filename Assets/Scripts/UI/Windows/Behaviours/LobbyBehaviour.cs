@@ -45,7 +45,7 @@ namespace Lever.UI.Windows.Behaviours
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
             
-            startGameButton.onClick.AddListener(StartGame);
+            startGameButton.gameObject.SetActive(false);
             quitLobbyButton.onClick.AddListener(QuitLobby);
         }
 
@@ -63,7 +63,7 @@ namespace Lever.UI.Windows.Behaviours
         /// Show lobby if createRoom
         /// </summary>
         /// <param name="roomName"></param>
-        public void Show(string roomName, int maxPlayerCount)
+        public void ShowForHost(string roomName, int maxPlayerCount)
         {
             currentRoomName = roomName;
             titleText.text = roomName + roomPostName;
@@ -72,6 +72,7 @@ namespace Lever.UI.Windows.Behaviours
             ToggleVisibleCanvasGroup(CanvasGroup, true);
             Animations.MoveToTargetPosition();
             
+            startGameButton.gameObject.SetActive(true);
             startGameButton.onClick.AddListener(StartGame);
             quitLobbyButton.onClick.AddListener(QuitLobby);
         }
@@ -82,7 +83,9 @@ namespace Lever.UI.Windows.Behaviours
             Animations.MoveToEndPosition(() => ToggleVisibleCanvasGroup(CanvasGroup, false));
             uiManager.UnsubscribeOnCloseLobby(); 
             
-            startGameButton.onClick.RemoveListener(StartGame);
+            if(startGameButton.gameObject.activeInHierarchy)
+                startGameButton.onClick.RemoveAllListeners();
+            
             quitLobbyButton.onClick.RemoveListener(QuitLobby);
         }
 

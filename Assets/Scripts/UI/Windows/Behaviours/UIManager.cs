@@ -61,9 +61,8 @@ public class UIManager : UIHelper, IUIManager
         lobbyNetworking.CreateRoom(name, (byte)maxPlayers);
         CreateLobby(name, maxPlayers);
     }
-
     
-
+    
     public void QuitLobby()
     {
         if (thisPlayerName == String.Empty) thisPlayerName = "Leaver";
@@ -81,17 +80,15 @@ public class UIManager : UIHelper, IUIManager
 
     public void OpenLobby(RoomInfo roomInfo)
     {
-        lobbyBehaviour.Show(roomInfo);
-        
-        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
-        lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
         lobbyNetworking.JoinRoom(roomInfo.Name);
+        lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
+        lobbyBehaviour.Show(roomInfo);
+        lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
     }
     
     public void CreateLobby(string newRoomName, int maxPlayerCount)
     {
-        lobbyBehaviour.Show(newRoomName, maxPlayerCount);
-        
+        lobbyBehaviour.ShowForHost(newRoomName, maxPlayerCount);
         lobbyBehaviour.UpdatePlayersList(lobbyNetworking.PlayersInRoom);
         lobbyNetworking.OnPlayerListChanged += lobbyBehaviour.UpdatePlayersList;
     }

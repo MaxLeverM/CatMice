@@ -50,6 +50,7 @@ class PlayerControlNetworking : PlayerControl
     protected override void Attack()
     {
         playerAnimator.SetTrigger("Kick");
+        pawsAnimator.SetTrigger("Kick");
         var ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward);
         RaycastHit hit;
         if (Physics.SphereCast(ray, 0.5f, out hit, attackDistance, LayerMask.NameToLayer("OtherPlayer")))

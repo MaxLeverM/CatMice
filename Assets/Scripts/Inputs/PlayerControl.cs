@@ -10,6 +10,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private SkinnedMeshRenderer firstEyeMesh;
     [SerializeField] private SkinnedMeshRenderer secondEyeMesh;
+    [SerializeField] private GameObject playerPaws;
+    [SerializeField] protected Animator pawsAnimator;
 
     [Header("Hunter/Victim fov parameters")] 
     [SerializeField] private float victimFov = 70;
@@ -311,6 +313,7 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouseCoroutine()
     {
+        pawsAnimator.SetTrigger("Transform");
         isTransforming = true;
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
@@ -328,6 +331,7 @@ public class PlayerControl : MonoBehaviour
         }
         isTransforming = false;
         isHunter = false;
+        playerPaws.SetActive(false);
         playerAnimator.SetBool("IsTransforming", isTransforming);
     }
 
@@ -339,6 +343,7 @@ public class PlayerControl : MonoBehaviour
     public virtual IEnumerator TransformToCatCoroutine()
     {
         isTransforming = true;
+        playerPaws.SetActive(true);
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
         for (float i = 0; i < 1; i += Time.deltaTime / 2)

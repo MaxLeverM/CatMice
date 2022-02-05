@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: playerAnimator
       value: 
       objectReference: {fileID: 1583568388728552547}
+    - target: {fileID: 6120300007517801434, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8249325233638036247, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 191
@@ -92,6 +96,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 576992534595889924, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3643962808261134111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6120300007517801434, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8000336664554086753 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 682505895955869092, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5211240325229477027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3327126339616960614, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
@@ -117,36 +131,6 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5068272595581537249, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3225098178821546934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211240325229477027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 2
-    Name: Jump
-  - Type: 4
-    SynchronizeType: 2
-    Name: Crouch
-  - Type: 9
-    SynchronizeType: 2
-    Name: Kick
-  - Type: 1
-    SynchronizeType: 2
-    Name: Speed
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
 --- !u!114 &2818804565168378396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +148,8 @@ MonoBehaviour:
   playerMesh: {fileID: 1429899827115710977}
   firstEyeMesh: {fileID: 7289199291494539255}
   secondEyeMesh: {fileID: 2317180772206020388}
+  playerPaws: {fileID: 3643962808261134111}
+  pawsAnimator: {fileID: 8000336664554086753}
   victimFov: 70
   hunterFov: 50
   victimRunSpeed: 7
@@ -187,6 +173,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  attackCooldown: 2
   effectDuration: 5
   speedUpMultiplier: 2
   slowDownMultiplier: 0.5
@@ -253,3 +240,33 @@ MonoBehaviour:
   bottomCameraAngle: -60
   upperCameraAngle: 60
   photonView: {fileID: 7385437953300491775}
+--- !u!114 &3225098178821546934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211240325229477027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: Jump
+  - Type: 4
+    SynchronizeType: 2
+    Name: Crouch
+  - Type: 9
+    SynchronizeType: 2
+    Name: Kick
+  - Type: 1
+    SynchronizeType: 2
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0

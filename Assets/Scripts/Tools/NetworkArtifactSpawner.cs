@@ -35,6 +35,7 @@ public class NetworkArtifactSpawner : MonoBehaviour
                     var teleportIndex = Random.Range(0, teleportPoints.Length);
                     photonView.RPC(nameof(SetCatArtifactTeleportationPoint), RpcTarget.All, 
                         catArtifact, teleportPoints[teleportIndex].position);
+                    catArtifact.id
                 }
             }
 

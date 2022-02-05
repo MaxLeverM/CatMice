@@ -1,4 +1,6 @@
 using System.Collections;
+using ExitGames.Client.Photon.StructWrapping;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -7,7 +9,7 @@ using Zenject;
 public class BushBehaviour : MonoBehaviour
 {
     [SerializeField] private Animator bushAnimator;
-    
+
     private Volume postProcessVolume;
     private Vignette vignette;
     private float defaultVignetteValue;
@@ -28,9 +30,8 @@ public class BushBehaviour : MonoBehaviour
         currentVignetteValue = defaultVignetteValue;
     }
 
-    private IEnumerator SetVignetteAndAnimate(float endValue)
+    private IEnumerator SetVignette(float endValue)
     {
-        bushAnimator.SetTrigger("IsInside");
         for (float i = 0; i < 1; i += Time.deltaTime)
         {
             vignette.intensity.value = Mathf.Lerp(currentVignetteValue, endValue, i);
@@ -39,12 +40,18 @@ public class BushBehaviour : MonoBehaviour
         currentVignetteValue = vignette.intensity.value;
     }
 
+    private void PlayAnimation()
+    {
+        bushAnimator.SetTrigger("IsInside");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerControl>())
         {
+            PlayAnimation();
             if(currentRoutine != null) StopCoroutine(currentRoutine);
-            currentRoutine = StartCoroutine(SetVignetteAndAnimate(valueToSet));
+            currentRoutine = StartCoroutine(SetVignette(valueToSet));
         }
     }
 
@@ -52,8 +59,9 @@ public class BushBehaviour : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerControl>())
         {
+            PlayAnimation();
             if(currentRoutine != null) StopCoroutine(currentRoutine);
-            currentRoutine = StartCoroutine(SetVignetteAndAnimate(defaultVignetteValue));
+            currentRoutine = StartCoroutine(SetVignette(defaultVignetteValue));
         }
     }
 }

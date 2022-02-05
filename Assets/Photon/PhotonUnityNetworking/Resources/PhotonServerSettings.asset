@@ -50,6 +50,7 @@ MonoBehaviour:
   - TransformToMouseNetwork
   - KillVictimEvent
   - DestroyMyself
+  - SetCatArtifactTeleportationPoint
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

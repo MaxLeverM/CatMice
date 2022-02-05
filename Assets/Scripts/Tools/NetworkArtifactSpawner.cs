@@ -33,11 +33,18 @@ public class NetworkArtifactSpawner : MonoBehaviour
                 if (artifact.TryGetComponent(out catArtifact))
                 {
                     var teleportIndex = Random.Range(0, teleportPoints.Length);
-                    catArtifact.TeleportPoint = teleportPoints[teleportIndex].position;
+                    photonView.RPC(nameof(SetCatArtifactTeleportationPoint), RpcTarget.All, 
+                        catArtifact, teleportPoints[teleportIndex].position);
                 }
             }
 
             yield return new WaitForSeconds(spawnFrequency);
         }
+    }
+
+    [PunRPC]
+    private void SetCatArtifactTeleportationPoint(CatArtifact artifact, Vector3 teleportationPosition)
+    {
+        artifact.TeleportPoint = teleportationPosition;
     }
 }

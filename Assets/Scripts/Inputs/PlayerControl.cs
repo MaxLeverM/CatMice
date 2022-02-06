@@ -316,7 +316,7 @@ public class PlayerControl : MonoBehaviour
 
     public virtual IEnumerator TransformToMouseCoroutine()
     {
-        pawsAnimator.SetTrigger("Transform");
+        if(playerPaws != null) pawsAnimator.SetTrigger("Transform");
         isTransforming = true;
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
@@ -335,7 +335,7 @@ public class PlayerControl : MonoBehaviour
         }
         isTransforming = false;
         isHunter = false;
-        playerPaws.SetActive(false);
+        if(playerPaws != null) playerPaws.SetActive(false);
         playerAnimator.SetBool("IsTransforming", isTransforming);
     }
 
@@ -347,7 +347,7 @@ public class PlayerControl : MonoBehaviour
     public virtual IEnumerator TransformToCatCoroutine()
     {
         isTransforming = true;
-        playerPaws.SetActive(true);
+        if(playerPaws != null) playerPaws.SetActive(true);
         playerAnimator.SetBool("IsTransforming", isTransforming);
         ResetAnimationParameters();
         for (float i = 0; i < 1; i += Time.deltaTime / 2)

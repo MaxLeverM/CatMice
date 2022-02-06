@@ -47,10 +47,10 @@ public class BushBehaviour : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerControl>())
+        if (other.gameObject.GetComponent<PlayerControlNetworking>())
         {
             PlayAnimation();
-            if (!photonView.IsMine) return;
+            if (!other.gameObject.GetComponent<PhotonView>().IsMine) return;
             if(currentRoutine != null) StopCoroutine(currentRoutine);
             currentRoutine = StartCoroutine(SetVignette(valueToSet));
         }
@@ -58,10 +58,10 @@ public class BushBehaviour : MonoBehaviourPun
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerControl>())
+        if (other.gameObject.GetComponent<PlayerControlNetworking>())
         {
             PlayAnimation();
-            if (!photonView.IsMine) return;
+            if (!other.gameObject.GetComponent<PhotonView>().IsMine) return;
             if(currentRoutine != null) StopCoroutine(currentRoutine);
             currentRoutine = StartCoroutine(SetVignette(defaultVignetteValue));
         }

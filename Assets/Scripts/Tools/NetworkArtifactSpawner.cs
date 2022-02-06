@@ -27,16 +27,16 @@ public class NetworkArtifactSpawner : MonoBehaviour
             foreach (var point in spawnPoints)
             {
                 var artifactIndex = Random.Range(0, artifactPrefabs.Length);
+                var data = GetInstantiationData();
                 var artifact = PhotonNetwork.Instantiate(artifactPrefabs[artifactIndex].name, point.position,
-                    Quaternion.identity);
-                CatArtifact catArtifact;
-                if (artifact.TryGetComponent(out catArtifact))
-                {
-                    var teleportIndex = Random.Range(0, teleportPoints.Length);
-                    photonView.RPC(nameof(SetCatArtifactTeleportationPoint), RpcTarget.All, 
-                        catArtifact, teleportPoints[teleportIndex].position);
-                    catArtifact.id
-                }
+                    Quaternion.identity, 0, data);
+                // CatArtifact catArtifact;
+                // if (artifact.TryGetComponent(out catArtifact))
+                // {
+                //     var teleportIndex = Random.Range(0, teleportPoints.Length);
+                //     photonView.RPC(nameof(SetCatArtifactTeleportationPoint), RpcTarget.All, 
+                //         catArtifact, teleportPoints[teleportIndex].position);
+                // }
             }
 
             yield return new WaitForSeconds(spawnFrequency);
@@ -47,5 +47,13 @@ public class NetworkArtifactSpawner : MonoBehaviour
     private void SetCatArtifactTeleportationPoint(CatArtifact artifact, Vector3 teleportationPosition)
     {
         artifact.TeleportPoint = teleportationPosition;
+    }
+
+    private object[] GetInstantiationData()
+    {
+        var teleportIndex = Random.Range(0, teleportPoints.Length);
+        var point = teleportPoints[teleportIndex].position;
+        object[] data = new[] {(object)point};
+        return data;
     }
 }

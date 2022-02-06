@@ -106,6 +106,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 682505895955869092, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &6595092129382262897 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4465356317078676660, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5211240325229477027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3327126339616960614, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
@@ -131,6 +136,36 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5068272595581537249, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3225098178821546934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211240325229477027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: Jump
+  - Type: 4
+    SynchronizeType: 2
+    Name: Crouch
+  - Type: 9
+    SynchronizeType: 2
+    Name: Kick
+  - Type: 1
+    SynchronizeType: 2
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!114 &2818804565168378396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +184,7 @@ MonoBehaviour:
   firstEyeMesh: {fileID: 7289199291494539255}
   secondEyeMesh: {fileID: 2317180772206020388}
   playerPaws: {fileID: 3643962808261134111}
+  pawsMesh: {fileID: 6595092129382262897}
   pawsAnimator: {fileID: 8000336664554086753}
   victimFov: 70
   hunterFov: 50
@@ -240,33 +276,3 @@ MonoBehaviour:
   bottomCameraAngle: -60
   upperCameraAngle: 60
   photonView: {fileID: 7385437953300491775}
---- !u!114 &3225098178821546934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211240325229477027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 2
-    Name: Jump
-  - Type: 4
-    SynchronizeType: 2
-    Name: Crouch
-  - Type: 9
-    SynchronizeType: 2
-    Name: Kick
-  - Type: 1
-    SynchronizeType: 2
-    Name: Speed
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0

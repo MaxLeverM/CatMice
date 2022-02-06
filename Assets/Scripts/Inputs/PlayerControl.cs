@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer firstEyeMesh;
     [SerializeField] private SkinnedMeshRenderer secondEyeMesh;
     [SerializeField] private GameObject playerPaws;
+    [SerializeField] private SkinnedMeshRenderer pawsMesh;
     [SerializeField] protected Animator pawsAnimator;
 
     [Header("Hunter/Victim fov parameters")] 
@@ -58,6 +59,7 @@ public class PlayerControl : MonoBehaviour
     private const string MaterialMixParameterName = "Vector1_1dda082405be4b85b58f95f41111bdcf";
 
     private Material playerMaterial;
+    private Material pawsMaterial;
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
@@ -90,6 +92,7 @@ public class PlayerControl : MonoBehaviour
     {
         meshRenderers = new[] { playerMesh, firstEyeMesh, secondEyeMesh };
         playerMaterial = playerMesh.material;
+        pawsMaterial = pawsMesh.material;
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
         playerJump = defaultJumpHeight;
         canJump = true;
@@ -325,6 +328,7 @@ public class PlayerControl : MonoBehaviour
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(0,100,EasingSmoothSquared(i)));
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
+            pawsMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
             mainCamera.fieldOfView = Mathf.Lerp(hunterFov, victimFov, EasingSmoothSquared(i));
             
             yield return null;
@@ -354,6 +358,7 @@ public class PlayerControl : MonoBehaviour
                 meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(100,0,EasingSmoothSquared(i)));
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
+            pawsMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
             mainCamera.fieldOfView = Mathf.Lerp(victimFov, hunterFov, EasingSmoothSquared(i));
             yield return null;
         }

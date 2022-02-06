@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Zenject;
 
-public class BushBehaviour : MonoBehaviour
+public class BushBehaviour : MonoBehaviourPun
 {
     [SerializeField] private Animator bushAnimator;
 
@@ -50,6 +50,7 @@ public class BushBehaviour : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerControl>())
         {
             PlayAnimation();
+            if (!photonView.IsMine) return;
             if(currentRoutine != null) StopCoroutine(currentRoutine);
             currentRoutine = StartCoroutine(SetVignette(valueToSet));
         }
@@ -60,6 +61,7 @@ public class BushBehaviour : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerControl>())
         {
             PlayAnimation();
+            if (!photonView.IsMine) return;
             if(currentRoutine != null) StopCoroutine(currentRoutine);
             currentRoutine = StartCoroutine(SetVignette(defaultVignetteValue));
         }

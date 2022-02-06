@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private GameObject playerPaws;
     [SerializeField] private SkinnedMeshRenderer pawsMesh;
     [SerializeField] protected Animator pawsAnimator;
+    [SerializeField] private Camera mainCamera;
 
     [Header("Hunter/Victim fov parameters")] 
     [SerializeField] private float victimFov = 70;
@@ -63,7 +64,6 @@ public class PlayerControl : MonoBehaviour
     private float playerSpeed;
     private float speedModificator = 1;
     private float playerJump;
-    private Camera mainCamera;
     protected Transform mainCameraTransform;
     private Vector3 velocity;
     private float standingHeight;
@@ -96,7 +96,6 @@ public class PlayerControl : MonoBehaviour
         playerMaterial.SetFloat(MaterialMixParameterName, 1);
         playerJump = defaultJumpHeight;
         canJump = true;
-        mainCamera = Camera.main;
         mainCameraTransform = mainCamera.transform;
         standingHeight = characterController.height;
         standingCenter = characterController.center;
@@ -329,7 +328,9 @@ public class PlayerControl : MonoBehaviour
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
             pawsMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(0, 1, EasingSmoothSquared(i)));
-            mainCamera.fieldOfView = Mathf.Lerp(hunterFov, victimFov, EasingSmoothSquared(i));
+            
+            if(mainCamera != null) 
+                mainCamera.fieldOfView = Mathf.Lerp(hunterFov, victimFov, EasingSmoothSquared(i));
             
             yield return null;
         }
@@ -359,7 +360,10 @@ public class PlayerControl : MonoBehaviour
             }
             playerMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
             pawsMaterial.SetFloat(MaterialMixParameterName, Mathf.Lerp(1, 0, EasingSmoothSquared(i)));
-            mainCamera.fieldOfView = Mathf.Lerp(victimFov, hunterFov, EasingSmoothSquared(i));
+            
+            if(mainCamera != null) 
+                mainCamera.fieldOfView = Mathf.Lerp(victimFov, hunterFov, EasingSmoothSquared(i));
+            
             yield return null;
         }
         isTransforming = false;

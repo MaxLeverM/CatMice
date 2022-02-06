@@ -96,6 +96,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 576992534595889924, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
   m_PrefabInstance: {fileID: 7385437951935155397}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1442600108706357202 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8249325233638036247, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
+  m_PrefabInstance: {fileID: 7385437951935155397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3643962808261134111 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6120300007517801434, guid: 7d4f6364491a56340b1809b44b513d4c, type: 3}
@@ -186,6 +191,7 @@ MonoBehaviour:
   playerPaws: {fileID: 3643962808261134111}
   pawsMesh: {fileID: 6595092129382262897}
   pawsAnimator: {fileID: 8000336664554086753}
+  mainCamera: {fileID: 1442600108706357202}
   victimFov: 70
   hunterFov: 50
   victimRunSpeed: 7

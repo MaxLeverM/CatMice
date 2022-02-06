@@ -10,12 +10,9 @@ public class NetworkArtifactSpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private float spawnFrequency = 10;
-
-    private PhotonView photonView;
     
     private void Start()
     {
-        photonView = PhotonView.Get(this);
         if(PhotonNetwork.IsMasterClient)
             StartCoroutine(SpawnArtifacts());
     }
@@ -28,25 +25,12 @@ public class NetworkArtifactSpawner : MonoBehaviour
             {
                 var artifactIndex = Random.Range(0, artifactPrefabs.Length);
                 var data = GetInstantiationData();
-                var artifact = PhotonNetwork.Instantiate(artifactPrefabs[artifactIndex].name, point.position,
+                PhotonNetwork.Instantiate(artifactPrefabs[artifactIndex].name, point.position,
                     Quaternion.identity, 0, data);
-                // CatArtifact catArtifact;
-                // if (artifact.TryGetComponent(out catArtifact))
-                // {
-                //     var teleportIndex = Random.Range(0, teleportPoints.Length);
-                //     photonView.RPC(nameof(SetCatArtifactTeleportationPoint), RpcTarget.All, 
-                //         catArtifact, teleportPoints[teleportIndex].position);
-                // }
             }
 
             yield return new WaitForSeconds(spawnFrequency);
         }
-    }
-
-    [PunRPC]
-    private void SetCatArtifactTeleportationPoint(CatArtifact artifact, Vector3 teleportationPosition)
-    {
-        artifact.TeleportPoint = teleportationPosition;
     }
 
     private object[] GetInstantiationData()
